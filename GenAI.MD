@@ -447,7 +447,550 @@ This need for domain-specific understanding was addressed by the [BloombergGPT m
 
 These real-world constraints exemplify the trade-offs that developers might face when pre-training models for particular domains. Despite such limitations, BloombergGPT was able to achieve best-in-class performance in financial benchmarks while also performing competitively on general-purpose LLM benchmarks.
 
------
+### Instruction of LLM Fine-Tuning
+
+Some models can understand instructions and respond correctly without any prior examples. This is called zero shot inference. However, smaller language models might not do this well.
+
+If you show these models an example of what you want them to do, they often perform better. This approach, where you use one or a few examples, is known as one shot or few shot inference.
+
+But, there are some issues with this method. First, for smaller models, even five or six examples might not always help. Second, these examples use up space that could be used for other important information.
+
+There's a good alternative, though. You can improve a basic model by training it more, a process called fine-tuning.
+
+Fine-tuning is when you teach a language model using a set of examples that have labels. These examples show the model what it should produce when given certain prompts. By doing this, you're essentially continuing the model's training so it gets better at responding correctly for specific tasks.
+
+There's a special method called instruction fine-tuning. This is really effective in making the model perform well across different types of tasks.
+
+Lets take a closer look at how this works. 
+
+<p align="middle">
+  <img src="images/25.png" alt="drawing" width="500"/>
+</p>
+
+Instruction fine-tuning trains the model to respond to certain instructions. Here's how it works: you give the model examples that show what kind of answer you want. 
+
+For instance, if the instruction is 'classify this review,' the model should reply with a text like 'sentiment: positive' or 'sentiment: negative.'
+
+When training, you use a lot of these example pairs. Each pair has a prompt with an instruction and the correct response. This helps the model learn how to answer for the specific task you're focusing on.
+
+If you want your model to get better at summarizing, you create a set of examples that start with 'summarize' or a similar phrase. Similarly, to improve translation, you use examples that start with 'translate this sentence.' These examples help the model learn to respond correctly to these instructions. This process, known as full fine-tuning, updates all parts of the model and creates a new version with these changes.
+
+<span style="color:red">Keep in mind, full fine-tuning needs a lot of memory and computing power.</span>. It's important to have the right resources for handling all the updates during training.
+
+To start fine-tuning a language model, first, you need the right training data. There are many datasets available that were used to train older language models, but they might not be in the form of instructions. 
+
+Fortunately, developers have created prompt template libraries. These libraries help turn existing datasets, like a large collection of Amazon product reviews, into datasets with instructions for fine-tuning. 
+
+These libraries have templates for different tasks and datasets.
+
+<p align="middle">
+  <img src="images/26.png" alt="drawing" width="500"/>
+</p>
+
+During fine-tuning, you take prompts from your training dataset and feed them to the language model. The model then comes up with responses. You compare these responses with the correct answers in the training data. For example, if the model wrongly labels a clearly positive review as neutral, you know it needs improvement.
+
+Remember, the output from a language model is like a set of probabilities for different words. You can measure how close the model's response is to the right answer by comparing these probabilities. This is done using a method called **cross-entropy** to calculate the 'loss' – basically, how far off the model is.
+
+You then use this loss to adjust the model's inner settings (or 'weights') through a process called backpropagation. By doing this with many examples and repeating the process (called epochs), you gradually improve the model's ability to do the task correctly.
+
+Just like in regular supervised learning, you can check how well your language model is doing by using a separate set of data that it hasn't seen before, called holdout validation data. This helps you find out the validation accuracy. After you finish fine-tuning the model, you do another check with a different set of new data, known as the holdout test dataset, to get the test accuracy.
+
+<p align="middle">
+  <img src="images/27.png" alt="drawing" width="500"/>
+</p>
+
+The end result of fine-tuning is a new version of the original model, often called an 'instruct model'. This new model is better at the tasks you focused on. Nowadays, fine-tuning language models with instruction prompts is very popular.
+
+So, whenever you come across the term 'fine-tuning' in the context of language models, it usually refers to this process of instruction fine-tuning.
+
+### Single-Task Fine-Tuning
+
+Language models are known for handling many different tasks with just one model. But if you only need it for one specific task, you can fine-tune a pre-trained model to get better at that task alone. For instance, you could fine-tune it for summarization using a dataset of examples for that task. Surprisingly, you don't need too many examples – often just 500 to 1,000 can be enough, compared to the billions of texts it saw during its initial training.
+
+However, there's a downside to focusing on just one task. It can lead to something called **catastrophic forgetting**. This happens because fine-tuning changes the model's original settings, making it really good at the new task but possibly worse at others. So, while the model might get better at, say, analyzing the sentiment of a review, it might 'forget' how to do other tasks it used to know.
+
+<p align="middle">
+  <img src="images/28.png" alt="drawing" width="500"/>
+</p>
+
+This model used to identify names of things correctly, like recognizing 'Taci' as the name of a dog in a sentence. But after fine-tuning for a different task, it started making mistakes in this area, showing skills related to the new task instead.
+
+To avoid this problem, called catastrophic forgetting, you have a couple of options:
+
+1. First, decide if catastrophic forgetting is actually a problem for you. If you only need the model to do well in the task you fine-tuned it for, then it might not matter if it can't do other tasks.
+
+2. If you want the model to keep its ability to do multiple tasks, you can fine-tune it on several tasks at once. This requires a lot more examples (maybe 50,000 to 100,000) from different tasks and more computing power.
+
+3. Another option is to use a method called **Parameter Efficient Fine-Tuning (PEFT)**. PEFT is a set of techniques that preserves the weights of the original LLM and trains only a small number of task-specific adapter layers and parameters. PEFT shows greater robustness to catastrophic forgetting since most of the pre-trained weights are left unchanged.
+
+<p align="middle">
+  <img src="images/29.png" alt="drawing" width="500"/>
+</p>
+
+In this case, the dataset has examples for different tasks like summarizing, rating reviews, translating code, and recognizing entities. By training the model with this mixed dataset, it gets better at all these tasks at the same time. This helps avoid catastrophic forgetting.
+
+Over many epochs of training, the calculated losses across examples are used to update the weights of the model, resulting in an instruction tuned model that is learned how to be good at many different tasks simultaneously. 
+
+A challenge with this multi-task fine-tuning is that it needs a lot of examples – maybe 50,000 to 100,000. But putting together this data can be very beneficial. The models created this way can perform well in many different tasks, which is great for situations where you need versatility.
+
+Let's look at a specific group of models trained this way, the FLAN models. The variations in these models come from the different datasets and tasks used in their fine-tuning process.
+
+FLAN stands for 'Fine-tuned Language Net.' It's a method used for the final stage of training different models. The creators of FLAN compare it to a 'dessert' that comes after the 'main course' of the initial training phase, which is a fun way to describe it.
+
+For example, FLAN-T5 is the FLAN version of the T5 foundational model. Similarly, FLAN-PaLM is the FLAN version of the PaLM foundational model. So, the idea is that FLAN is applied to existing models to enhance their capabilities.
+
+<p align="middle">
+  <img src="images/30.png" alt="drawing" width="500"/>
+</p>
+
+FLAN-T5 is a versatile and powerful model, designed to handle a wide range of tasks. It has been fine-tuned using 473 datasets that cover 146 different types of tasks. These datasets were selected from various models and research papers.
+
+An example of a specific dataset used in FLAN-T5 for training summarization tasks is called SAMSum. This is part of a larger collection named 'muffin.' SAMSum focuses on teaching language models to summarize dialogues, and it consists of 16,000 conversations that resemble messenger chats, each accompanied by a summary.
+
+<p align="middle">
+  <img src="images/31.png" alt="drawing" width="500"/>
+</p>
+
+Here we see four examples where each dialogue is on the left and its summary is on the right. These dialogues and summaries were specially made by linguists to create a high-quality training dataset for language models.
+
+The linguists were instructed to create conversations similar to what they would normally write in their daily lives. These conversations reflect the variety of topics they talk about in real-life messenger chats. After creating the dialogues, language experts then wrote short summaries of these conversations. These summaries include the key information and names of the people involved in the dialogue.
+
+<p align="middle">
+  <img src="images/32.png" alt="drawing" width="500"/>
+</p>
+
+Here's an example of how a prompt template is used with the SAMSum dialogue summary dataset. The template includes various instructions, but they all have the same goal: to summarize a dialogue.
+
+For instance, the template might say, 'Briefly summarize this dialogue,' or 'What is a summary of this dialogue?' or 'What was going on in that conversation?' Using different ways to phrase the same instruction helps the model understand and perform better, just like the earlier prompt templates we discussed.
+
+In each case, the actual dialogue from the SAMSum dataset is placed into the template where it says 'dialogue.' The summaries from the dataset are used as the correct answers, or labels.
+
+By applying this template to each entry in the SAMSum dataset, you can fine-tune a model specifically for the task of summarizing dialogues.
+
+While FLAN-T5 is a versatile and generally effective model for many tasks, you might still find that it needs some tweaking to better suit your specific needs.
+
+Imagine you're a data scientist creating an app to help your customer service team. This app processes requests from a chatbot. Your team needs to quickly understand each conversation, identifying the main requests from the customer and deciding on the appropriate actions.
+
+The SAMSum dataset provides FLAN-T5 with the ability to summarize casual conversations, like those between friends discussing everyday things. However, these examples don't align well with the kind of language and structure you typically see in customer service chats.
+
+To make FLAN-T5 more suited for your specific needs, you can further fine-tune the model. You'd use a dataset that closely matches the conversations your bot handles. This additional fine-tuning helps the model become more adept at summarizing the types of dialogues your customer service team encounters.
+
+<p align="middle">
+  <img src="images/33.png" alt="drawing" width="500"/>
+</p>
+
+Let's take a look at example from the DialogSum and see how further fine-tuning can improve the model.
+
+The example we're looking at is a typical support chat from the DialogSum dataset. It's a conversation between a customer and a hotel check-in desk staff member. The chat has been formatted using a template, so it starts with an instruction to summarize the conversation.
+
+Now, let's see how FLAN-T5 handles this prompt before any additional fine-tuning is done. This will give us an insight into its current abilities and how further training might improve its performance in understanding and summarizing this type of customer service interaction.
+
+<p align="middle">
+  <img src="images/34.png" alt="drawing" width="500"/>
+</p>
+
+Observe how the prompt is now condensed on the left, allowing us to focus more on the model's response.
+
+Looking at FLAN-T5's reply to the summarization instruction, we notice that it correctly identifies the conversation's main topic – a reservation for someone named Jordan. However, it falls short compared to a summary created by a human. The human-generated summary includes crucial details, like Alex asking for information to help with check-in.
+
+Moreover, the model's summary includes some inaccuracies. It introduces details that weren't in the original conversation, such as the name of the hotel and the city it's located in. This highlights areas where the model needs improvement to match the accuracy and relevance of human-generated summaries.
+
+<p align="middle">
+  <img src="images/35.png" alt="drawing" width="500"/>
+</p>
+
+Now, let's see how the model performs after being fine-tuned with the DialogSum dataset. Ideally, the model's output should now be closer to the human-produced summary. It should not contain any fabricated details and should include all the crucial information, such as the names of both participants in the conversation.
+
+This example showcases how you can use a public dataset like DialogSum for fine-tuning a model with custom data. The goal is to make the model's summarization more accurate and relevant to specific types of conversations, like customer service interactions
+
+**Summary:**
+In practical terms, the best results from fine-tuning often come from using your company's internal data. For instance, using the support chat conversations from your customer support application would be ideal.
+
+This approach allows the model to learn the specific ways your company prefers to summarize conversations and understand what's most helpful for your customer service team. When you're fine-tuning a model, it's important to also consider how you'll assess the quality of the model's responses. Ensuring that the model's summaries are accurate, relevant, and useful is key to successfully implementing this technology in your customer service process.
+
+### Model Evaluation
+
+How can you formalize the improvement in performance of your fine-tuned model over the pre-trained model you started with? 
+
+Let's explore several metrics that are used by developers of large language models that you can use to assess the performance of your models and compare them to other models out in the world. 
+
+In traditional machine learning, you can assess how well a model is doing by looking at its performance on training and validation data sets where the output is already known.
+
+<p align="left">
+  <img src="images/36.png" alt="drawing" width="250"/>
+</p>
+
+You can calculate simple metrics such as accuracy, which states the fraction of all predictions that are correct because the models are deterministic. However with large language models where the output is non-deterministic and language-based evaluation is much more challenging.
+
+Take, for example, the sentence,
+- Mike really loves drinking tea.
+  
+This is quite similar to
+
+- Mike adores sipping tea.
+
+But how do you measure the similarity? Lets look at these other two sentences. 
+
+- Mike does not drink coffee. 
+- Mike does drink coffee. 
+ 
+There is only one-word difference between these two sentences. However, its meaning is completely different.
+
+We can now see the similarities and differences for people like us with soft organic brains. But when you train a model with millions of sentences, you need an automated, structured way to measure.
+
+<p align="left">
+  <img src="images/37.png" alt="drawing" width="600"/>
+</p>
+
+ROUGE and BLEU are important metrics for different tasks:
+
+- **ROUGE (Recall-Oriented Understudy for Gisting Evaluation):** This is used to check the quality of summaries made by a computer. It does this by comparing these summaries to ones made by humans.
+
+- **BLEU (Bilingual Evaluation Understudy):** This metric evaluates how good a computer's text translation is. It compares the machine's translation with human translations to see how well it did.
+
+It's interesting to note that **BLEU** is French for blue. Some people might say blue when they talk about it, but its original pronunciation is BLEU.
+
+<p align="left">
+  <img src="images/38.png" alt="drawing" width="300"/>
+</p>
+
+Let's review some terminology. 
+
+In language anatomy, a unigram is equivalent to a single word. A bigram consists of two words and an n-gram is a group of n words.
+
+Let's start by examining the ROUGE-1 metric. 
+
+Consider a sentence made by a human;
+
+- It is cold outside.
+ 
+And a machine-generated sentence;
+
+- It is very cold outside. 
+ 
+We can evaluate these using metrics common in machine learning, like recall, precision, and F1.
+
+Recall, in this context, is calculated by comparing the number of matching words (or unigrams) in both the reference and the generated sentence. This total is then divided by the number of words in the original, human-made sentence.
+
+<p align="left">
+  <img src="images/39.png" alt="drawing" width="500"/>
+</p>
+
+In our example, the recall score is a perfect one, because all the words in the generated sentence are also in the reference sentence. Precision is calculated by dividing the number of matching unigrams by the total number of words in the generated sentence.
+
+The F1 score combines recall and precision, taking their harmonic mean. These are basic metrics focusing solely on individual words - that's why it's called ROUGE-1. 
+
+They don't take into account the order of the words, which can sometimes be misleading. It's possible to create sentences that score high but don't actually sound right.
+
+Consider if the generated sentence had one different word, *not*, making it *It is not cold outside*. The scores would remain unchanged, highlighting a limitation of this method.
+
+<p align="left">
+  <img src="images/40.png" alt="drawing" width="500"/>
+</p>
+
+To get a more accurate score, you can consider bigrams, which are pairs of consecutive words from the reference and generated sentences. This approach, known as ROUGE-2, acknowledges the order of words to some extent. You calculate recall, precision, and F1 scores based on how many bigrams match, instead of just individual words.
+
+You'll often find that ROUGE-2 scores are lower than ROUGE-1 scores. This is because, in longer sentences, there's a higher chance that the bigrams don't match, leading to lower scores.
+
+Instead of progressing to larger n-grams like trigrams (three-word sequences) or four-word sequences, we can take a different approach. This involves looking for the longest common subsequence shared between the generated and reference outputs. In our example, the longest matching subsequences are *it is* and *cold outside*, each with a length of two.
+
+<p align="left">
+  <img src="images/41.png" alt="drawing" width="500"/>
+</p>
+
+Now, you can use the length of the **Longest Common Subsequence (LCS)** to calculate recall, precision, and F1 scores. In these calculations, the numerator for both recall and precision is the length of the LCS, which in our example is two. These three metrics together are known as the ROUGE-L score.
+
+It's important to remember that ROUGE scores need to be understood in context. They are only useful for comparing different models if the models were tested on the same task, like summarization. ROUGE scores from different tasks shouldn't be compared with each other.
+
+A notable issue with simple ROUGE scores is that they can sometimes give a high rating to a poorly generated sentence. This happens because these scores may not fully capture the quality or coherence of the generated text.
+
+<p align="left">
+  <img src="images/42.png" alt="drawing" width="500"/>
+</p>
+
+Consider the generated output *cold, cold, cold, cold*. This output, despite being repetitive, will score quite high on the ROUGE-1 metric because it contains a word from the reference sentence. Its ROUGE-1 precision score would be perfect since the word *cold* matches, even though it's repeated several times.
+
+To address this, you can use a clipping function. This function limits the count of unigram matches to the maximum number found in the reference. In our example, *cold* appears once in the reference. So, when using clipped precision, this repetitive output gets a much lower score because the repeated occurrences of *cold* are only counted once.
+
+However, this method still has limitations. For instance, consider a generated sentence like *outside cold it is*. Even with clipped precision, this sentence would score perfectly, as all the words are present in the reference, just in a different order.
+
+In summary, while different ROUGE scores can be helpful, choosing the right n-gram size to get the most useful score depends on the specific sentence, its length, and the intended use case.
+
+**The BLEU score**, which stands for **Bilingual Evaluation Understudy**, is another useful metric for evaluating your model, especially in the context of machine translation. It's important to remember that the BLEU score is specifically designed to assess the quality of text translated by a machine.
+
+The BLEU score is calculated by taking the average precision across various n-gram sizes, similar to how the ROUGE-1 score works, but it considers a range of n-gram sizes instead of just one. It then averages these precisions to provide an overall score. Let's delve into what this score measures and how it is calculated.
+
+**<span style="color:blue">BLEU metric = Avg(precision across range of n-gram sizes)</span>**
+
+- **Reference (human):**
+  - <span style="color:orange">I am very happy to say that I am drinking a warm cup of tea.</span>.
+  
+- **Generated output:**
+  - <span style="color:orange">I am very happy that I am drinking a cup of tea.</span>. - BLUE 0.495
+  - <span style="color:orange">I am very happy that I am drinking a warm cup of tea.</span>. - BLUE 0.730
+  - <span style="color:orange">I am very happy to say that I am drinking a warm tea.</span>. - BLUE 0.798
+  - <span style="color:orange">I am very happy to say that I am drinking a warm cup of tea.</span>. - BLUE 1.000
+
+The BLEU score evaluates the quality of machine-generated translations by comparing the number of n-grams in the translation with those in a reference translation. To calculate this score, you average the precision across different n-gram sizes. If done manually, it involves multiple calculations averaged to determine the BLEU score.
+
+For a clearer understanding, let's consider a longer sentence. The reference sentence is: *I am very happy to say that I am drinking a warm cup of tea*.
+
+As we've already explored individual calculations with the ROUGE metric, I'll demonstrate the BLEU score using a standard library. Libraries from providers like Hugging Face make this process straightforward. For instance, the candidate sentence *I am very happy that I am drinking a cup of tea* gets a BLEU score of 0.495. The closer the candidate sentence is to the original, the closer the score is to one.
+
+Both ROUGE and BLEU are relatively simple and low-cost metrics to calculate. They are useful for quick assessments as you develop your models, but they shouldn't be the sole metrics for the final evaluation of a large language model.
+
+Use ROUGE for a diagnostic evaluation of summarization tasks and BLEU for translation tasks. For a comprehensive evaluation of your model's performance, however, you should refer to one of the evaluation benchmarks developed by researchers. These benchmarks offer a more thorough assessment of the model's capabilities across various aspects.
+
+### Benchmarks and Results
+
+<p align="left">
+  <img src="images/43.png" alt="drawing" width="350"/>
+</p>
+
+Large Language Models (LLMs) are complex, and simple evaluation metrics like ROUGE and BLEU scores provide only a limited understanding of a model's capabilities. For a more comprehensive assessment, it's essential to utilize pre-existing datasets and benchmarks established by LLM researchers.
+
+Choosing the right evaluation dataset is crucial for accurately assessing an LLM's performance and understanding its true capabilities. It's beneficial to select datasets that isolate specific skills of the model, such as reasoning or common-sense knowledge, and those that focus on potential risks like disinformation or copyright infringement.
+
+An important consideration is whether the model has encountered your evaluation data during training. Evaluating the model on unseen data will give you a more accurate and useful indication of its capabilities.
+
+Benchmarks such as GLUE (General Language Understanding Evaluation), SuperGLUE, or Helm provide a broad range of tasks and scenarios, designed to test specific aspects of an LLM. Introduced in 2018, GLUE is a collection of natural language tasks like sentiment analysis and question-answering, aimed at encouraging the development of models that can generalize across multiple tasks.
+
+SuperGLUE, introduced in 2019 as a successor to GLUE, addresses some of its predecessor's limitations. It includes more challenging tasks, such as multi-sentence reasoning and reading comprehension, and some tasks that weren't part of GLUE.
+
+Both GLUE and SuperGLUE have leaderboards for comparing model performances, and their results pages are valuable resources for tracking LLM progress. As models grow larger, their performance on benchmarks like SuperGLUE begins to rival human abilities in specific tasks. However, this doesn't necessarily mean they perform at a human level in general tasks.
+
+There is an ongoing challenge between the evolving capabilities of LLMs and the benchmarks designed to measure them. This "arms race" pushes the development of both more advanced models and more sophisticated evaluation methods.
+
+<p align="left">
+  <img src="images/44.png" alt="drawing" width="450"/>
+</p>
+
+Massive Multitask Language Understanding (MMLU) is a benchmark tailored for modern Large Language Models (LLMs). It requires models to have a broad base of world knowledge and problem-solving abilities. MMLU tests models on a variety of topics, including elementary mathematics, U.S. history, computer science, law, and more. This means that the tasks go well beyond basic language understanding and delve into specialized knowledge areas.
+
+BIG-bench, another significant benchmark, currently includes 204 tasks covering a wide array of subjects like linguistics, childhood development, mathematics, common sense reasoning, biology, physics, social bias, software development, and more. This variety ensures a comprehensive evaluation of an LLM's capabilities in different fields.
+
+To make these benchmarks accessible and manageable, BIG-bench is available in three different sizes. This approach helps to keep costs within a reasonable range. Running these large-scale benchmarks can be resource-intensive and expensive, especially in terms of computational requirements for inference. By offering different sizes, BIG-bench allows for a more flexible and cost-effective way to evaluate the capabilities of LLMs, catering to different scales of research and development needs.
+
+<p align="left">
+  <img src="images/45.png" alt="drawing" width="1000"/>
+</p>
+
+**For details of the benchmark:** [HELM](https://arxiv.org/pdf/2211.09110.pdf)
+
+The Holistic Evaluation of Language Models (HELM) is another crucial benchmark for assessing Large Language Models (LLMs). HELM is designed to enhance the transparency of models and provide insights into which models excel at specific tasks. It adopts a multimetric approach, evaluating seven metrics across 16 core scenarios. This comprehensive assessment ensures that trade-offs between different models and metrics are clearly highlighted.
+
+A key aspect of HELM is its focus on metrics that go beyond basic accuracy measures like precision or the F1 score. The benchmark incorporates evaluations for fairness, bias, and toxicity. These aspects are increasingly vital as LLMs become more proficient in human-like language generation and, consequently, more capable of exhibiting potentially harmful behaviors.
+
+HELM is a dynamic benchmark, intended to evolve continuously as new scenarios, metrics, and models emerge. For anyone interested in the capabilities and performance of different LLMs, the HELM results page is a valuable resource. It allows users to browse through evaluated models and review scores relevant to their project's needs, offering a comprehensive view of the current landscape of LLM performance.
+
+## Optimized Parameter Adjustment for Enhanced Model Training
+
+### PEFT Methods
+
+Training large language models (LLMs) requires a lot of computing power. To fully fine-tune these models, you need memory not only for the model itself but also for several other important parameters used during training.
+
+Even if your computer has enough space for the model weights, which can be hundreds of gigabytes for the biggest models, you also need enough memory for other things. These include optimizer states, gradients, forward activations, and temporary memory needed at different stages of the training process.
+
+These additional components can be much larger than the model itself and often don't fit on standard computers. Unlike full fine-tuning, where every weight in the model is updated during learning, methods that use parameter-efficient fine-tuning (PEFT) only change a small part of the parameters.
+
+Some PEFT methods keep most of the model weights the same and only adjust a small portion of them, like certain layers. Other methods don’t alter the original model weights at all. Instead, they add a few new parameters or layers and only fine-tune these new parts.
+
+With PEFT, most or all of the original weights of the large language model are left unchanged. This means the number of parameters that need training is much smaller than in the full model. Sometimes, only 15-20% of the original model weights need updating. This reduces the memory needed for training, making it possible to train on a single graphics processing unit (GPU). Plus, since PEFT modifies the original model very little or not at all, it’s less likely to completely forget what it has previously learned, a common issue with full fine-tuning.
+
+<p align="left">
+  <img src="images/46.png" alt="drawing" width="500"/>
+</p>
+
+When you do full fine-tuning, you end up with a new version of the model for each task you train it on. Since each of these new models is as big as the original one, it can lead to a costly storage issue, especially if you're fine-tuning for several different tasks.
+
+Lets see how you can use PEFT to improve the situation.
+
+<p align="left">
+  <img src="images/47.png" alt="drawing" width="500"/>
+</p>
+
+In parameter-efficient fine-tuning, you only train a small number of weights. This leads to a much smaller overall size, sometimes as little as a few megabytes, depending on the task. 
+
+These new parameters work together with the original large language model (LLM) weights during inference. The PEFT weights are trained for each specific task and can be easily switched for different tasks. This makes it possible to adapt the original model to many tasks efficiently.
+
+#### PEFT Trade-offs
+
+<p align="left">
+  <img src="images/48.png" alt="drawing" width="500"/>
+</p>
+
+There are many ways to do parameter-efficient fine-tuning, and each method balances different things like how efficient it is in using parameters, how much memory it uses, how fast it trains, the quality of the model, and the cost of using the model for inference.
+
+Lets take a look at the three main classes of PEFT methods.
+
+<p align="left">
+  <img src="images/49.png" alt="drawing" width="500"/>
+</p>
+
+**Selective** methods update only some of the original large language model (LLM) parameters. You can choose to train just certain parts of the model, like specific layers or even individual types of parameters. Research shows that these methods have varying success and there's a balance between how efficiently they use parameters and computing resources.
+
+**Reparameterization** methods also use the original LLM parameters but reduce the number of parameters you need to train. They do this by transforming the original network weights in a simpler way. A popular method here is called **LoRA (Low-rank Adaptation)**.
+
+**Additive methods**, on the other hand, keep all the original LLM weights unchanged and add new trainable parts to the model. There are two main ways to do this:
+
+1. **Adapter** methods: These add new trainable layers to the model's structure, usually after the attention or feed-forward layers in the encoder or decoder.
+2. **Soft prompt** methods: These keep the model structure the same and frozen but change the input to improve performance. This can involve adding trainable parameters to the prompt embeddings or retraining the embedding weights while keeping the input the same.
+
+#### PEFT techniques 1: LoRA
+
+Now, let's focus on LoRA, a technique for parameter-efficient fine-tuning. It's a kind of reparameterization method, and here's how it works.
+
+<p align="left">
+  <img src="images/50.png" alt="drawing" width="400"/>
+</p>
+
+Let's quickly review the transformer model mentioned earlier. 
+
+First, the input text is broken down into tokens. These tokens are then turned into embedding vectors. These vectors go through the transformer's encoder and/or decoder.
+
+Inside both the encoder and decoder, there are two main types of neural networks: 'self-attention' and 'feedforward' networks. These networks get their weights set during the initial training phase. Once the embedding vectors are ready, they go into the self-attention layers. Here, a series of weights work together to figure out the attention scores.
+
+When you do full fine-tuning, every single parameter in these layers is updated.
+
+<p align="left">
+  <img src="images/51.png" alt="drawing" width="600"/>
+</p>
+
+LoRA, short for Low-rank Adaptation, is a method that reduces how many parameters need training in fine-tuning. It works by keeping all the original model parameters unchanged and adding two small matrices alongside the original weights. These small matrices are designed so that when multiplied, they match the size of the weights they're modifying.
+
+During training, you keep the original large language model (LLM) weights the same and only train these smaller matrices using the usual supervised learning process.
+
+For using the model, or 'inference,' you multiply the two small matrices to get a new matrix the same size as the original weights. This new matrix is then added to the original weights, updating them in the model.
+
+With a LoRA fine-tuned model, you can perform your specific task without increasing the number of parameters, which means the speed of the model's responses, or 'inference latency,' is almost unaffected.
+
+Researchers have discovered that applying LoRA mainly to the self-attention layers of the model is often enough for fine-tuning for a task and getting better results. You could apply LoRA to other parts, like the feed-forward layers, but since most of an LLM's parameters are in the attention layers, focusing on these offers the most benefit in terms of reducing the number of parameters you need to train.
+
+**Use the base Transformer model presented by Vaswani et al. 2017:**
+- Transformer weights have dimensions d x k = 512 × 64
+- So 512 × 64 = 32,768 trainable parameters
+
+**In LoRA with rank r = 8:**
+- A has dimensions r x k = 8 × 64 = 512 parameters
+- B has dimension d x r = 512 x 8 = 4,096 trainable parameters
+- **86% reduction in parameters to train!**
+
+Let's take a practical example with the transformer model described in the 'Attention is All You Need' paper. In this model, the transformer weights are sized 512 by 64, meaning each weights matrix has 32,768 trainable parameters. If you choose to fine-tune using LoRA with a rank of eight, you'll work with two smaller matrices.
+
+Matrix A will be 8 by 64, which has 512 parameters. Matrix B will be 512 by 8, totaling 4,096 parameters. By fine-tuning these smaller matrices instead of the original large weights matrix, you only need to train 4,608 parameters instead of 32,768. This is an 86% reduction in the number of parameters.
+
+This significant reduction in trainable parameters with LoRA means you can often do this efficient fine-tuning on just a single GPU, avoiding the need for a large distributed cluster of GPUs.
+
+<p align="left">
+  <img src="images/52.png" alt="drawing" width="600"/>
+</p>
+
+Because the rank-decomposition matrices in LoRA are small, you can fine-tune a separate set for each task and easily switch them during inference by updating the model's weights.
+
+Imagine you train a pair of LoRA matrices for a specific task, let's call it Task A. To use the model for Task A, you multiply these matrices, add the result to the original frozen weights, and then replace the original weights in the model with this new summed weights matrix. This updated model is now ready for inference on Task A. If you want to switch to a different task, like Task B, you just use the LoRA matrices trained for Task B, combine them, and update the original weights in the model accordingly.
+
+Storing these LoRA matrices takes up very little space. So, in theory, you can train for many tasks, switch out the weights as needed, and avoid the need to keep multiple large versions of the LLM.
+
+To see how effective these models are, let's use the ROUGE metric we discussed earlier. We'll compare the performance of a LoRA fine-tuned model with both the original base model and a fully fine-tuned version.
+
+<p align="left">
+  <img src="images/53.png" alt="drawing" width="600"/>
+</p>
+
+We'll focus on fine-tuning the FLAN-T5-base model for dialogue summarization, which we looked at earlier. Remember, this model was initially fine-tuned using a large instruction dataset.
+
+First, let's establish a baseline performance for the FLAN-T5 base model on our summarization dataset. We'll use the ROUGE scores, where a higher number means better performance. For our discussion, we'll concentrate on the ROUGE 1 score, but any of these scores could be used for comparison. As we see, the base model's scores are relatively low.
+
+Now, consider the scores for a model that received additional full fine-tuning specifically for dialogue summarization. Even though FLAN-T5 is effective, it still improves with more fine-tuning on particular tasks. In full fine-tuning, every weight in the model is updated. This approach significantly boosts the ROUGE 1 score by 0.19 over the base model, showing a marked improvement in summarization.
+
+Next, let's look at the LoRA fine-tuned model. This method also significantly improves performance, with the ROUGE 1 score increasing by 0.17 from the baseline. This is slightly less than with full fine-tuning, but the difference is small.
+
+The key advantage of LoRA is that it trains far fewer parameters than full fine-tuning and uses much less computing power. So, the slight drop in performance might be a worthwhile trade-off.
+
+Choosing the rank for the LoRA matrices is an important decision and still an area of ongoing research. Generally, a lower rank means fewer parameters to train and more savings in computing resources. But, you also have to consider how it might affect the model's performance.
+
+<p align="left">
+  <img src="images/54.png" alt="drawing" width="400"/>
+</p>
+
+In the paper where LoRA was first introduced, Microsoft researchers explored how different choices of rank impacted the model performance on language generation tasks.
+
+You can see the summary of the results in the table here. The table shows the rank of the LoRA matrices in the first column, the final loss value of the model, and the scores for different metrics, including BLEU and ROUGE. The bold values indicate the best scores that were achieved for each metric. The authors found a plateau in the loss value for ranks greater than 16. 
+
+In other words, using larger LoRA matrices didnt improve performance. 
+
+The takeaway here is that ranks in the range of 4-32 can provide you with a good trade-off between reducing trainable parameters and preserving performance. Optimizing the choice of rank is an ongoing area of research and best practices may evolve as more practitioners like you make use of LoRA. 
+
+LoRA is a powerful fine-tuning method that achieves great performance. The principles behind the method are useful not just for training LLMs, but for models in other domains.
+
+#### PEFT techniques 2: Soft Prompts
+
+**LoRA's main objective is to find an efficient method to update a model's weights without retraining every parameter**. There are also additive approaches within parameter-efficient fine-tuning (PEFT) that focus on enhancing the model's performance without altering the original weights at all.
+
+It's worth noting that prompt tuning might seem similar to prompt engineering, but they are actually quite distinct from each other.
+
+<p align="left">
+  <img src="images/8.png" alt="drawing" width="500"/>
+</p>
+
+Prompt engineering involves tweaking the language of your prompt to get the desired response from the model. This could be as simple as changing words or phrases, or more complex, like adding examples for one-shot or few-shot inference. 
+
+The aim is to make it easier for the model to understand what you're asking and to produce a better response. 
+
+However, prompt engineering has its limits. It can take a lot of effort to write and test different prompts. You're also constrained by the maximum length of the input the model can handle. Despite all the effort, you might still not get the performance level you need for your specific task.
+
+In prompt tuning, you add extra trainable tokens to your prompt, allowing the supervised learning process to figure out their best values. These trainable tokens are known as a **soft prompt**. 
+
+They are added to the start of the embedding vectors that represent your input text. The soft prompt vectors are the same size as the embedding vectors of the language tokens. Generally, including about 20 to 100 of these virtual tokens is enough to achieve good results.
+
+<p align="middle">
+  <img src="images/55.png" alt="drawing" width="400"/>
+</p>
+
+Tokens representing natural language are hard because each one corresponds to a specific spot in the embedding vector space. However, soft prompts are different. They are not fixed, discrete words from natural language. 
+
+Instead, they are like virtual tokens that can have any value within the continuous, multidimensional embedding space. Through supervised learning, the model determines the best values for these virtual tokens to achieve the best performance for a specific task
+
+In full fine-tuning, the training data includes input prompts and output completions or labels. During this process, the weights of the large language model are updated through supervised learning. 
+
+On the other hand, in prompt tuning, the large language model's weights stay the same; they are frozen and don't get updated. 
+
+Instead, what changes are the embedding vectors of the soft prompt. Over time, these soft prompt vectors are updated to help the model respond better to the prompt.
+
+Prompt tuning is a very parameter efficient strategy because only a few parameters are being trained. In contrast with the millions to billions of parameters in full fine tuning, similar to what you saw with LoRA. 
+
+<p align="middle">
+  <img src="images/56.png" alt="drawing" width="400"/>
+</p>
+
+You can train a unique set of soft prompts for each specific task and then switch them easily when it's time to use the model, known as inference. For instance, you can train one set of soft prompts for Task A and another set for Task B. 
+
+When you want to use the model for a task, you just add the learned soft prompt tokens to the beginning of your input. To switch tasks, you simply replace the soft prompt with the one trained for the new task. 
+
+Soft prompts take up very little space on your computer, making this method of fine-tuning not only flexible but also very efficient. The key point is that you're using the same large language model (LLM) for all tasks; the only change you make at inference time is the set of soft prompts."
+
+<p align="left">
+  <img src="images/57.png" alt="drawing" width="400"/>
+</p>
+
+In the paper, Exploring the Method by Brian Lester and collaborators at Google. The authors compared prompt tuning to several other methods for a range of model sizes. 
+
+In a chart from the paper, you can see the model size on the X-axis and the SuperGLUE score, a benchmark for language tasks, on the Y-axis. The red line represents scores for models fine-tuned fully on a single task, the orange line for those fine-tuned on multiple tasks, the green line for prompt tuning, and the blue line for only prompt engineering.
+
+The results show that prompt tuning doesn't do as well as full fine-tuning with smaller large language models (LLMs). But as the model size grows, prompt tuning's performance improves. When models reach about 10 billion parameters, prompt tuning becomes as effective as full fine-tuning, and significantly better than just prompt engineering.
+
+A concern with prompt tuning is how to understand the learned virtual tokens, as they don't correspond to any specific words or phrases in the LLM's vocabulary. They can represent any value in the continuous embedding space. However, an analysis of the nearest tokens to the soft prompt locations revealed that they form closely related semantic clusters. This means that the closest words to the soft prompt tokens are similar in meaning, often related to the task at hand. This suggests that the virtual tokens in prompt tuning are learning representations similar to actual words.
+
+<p align="left">
+  <img src="images/58.png" alt="drawing" width="500"/>
+</p>
+
+**Conclusion:** 
+You've looked at two methods for parameter-efficient fine-tuning (PEFT): LoRA and Prompt Tuning. 
+
+LoRA uses rank decomposition matrices to update model parameters efficiently, while Prompt Tuning adds trainable tokens to your prompt without changing the model weights. 
+
+Both methods offer the potential to enhance model performance on specific tasks while requiring significantly less computing power compared to full fine-tuning methods. LoRA, in particular, is widely used because it often performs as well as full fine-tuning across many tasks and datasets.
 
 
 
