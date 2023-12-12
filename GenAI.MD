@@ -1,4 +1,4 @@
-<h1>Generative AI with Large Language Models (LLM)</h1>
+<h1>Generative AI with Large Language Models (LLMs)</h1>
 
 <p align="left">
   <img src="images/0.png" alt="drawing" width="800"/>
