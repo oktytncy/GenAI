@@ -1,7 +1,7 @@
 # Generative AI with Large Language Models (LLM)
 
 <p align="left">
-  <img src="images/0.png" alt="drawing" width="600"/>
+  <img src="images/0.png" alt="drawing" width="1000"/>
 </p>
 
 ## Contact info
