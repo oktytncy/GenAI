@@ -1,4 +1,4 @@
-# Generative AI with Large Language Models (LLM)
+<center> <h1>Generative AI with Large Language Models (LLM)</h1> </center>
 
 <p align="middle">
   <img src="images/0.png" alt="drawing" width="800"/>
@@ -14,8 +14,6 @@ Reach out to me at one of the following places!
 # Table of Contents
 
 ---
-- [Generative AI with Large Language Models (LLM)](#generative-ai-with-large-language-models-llm)
-  - [Contact info](#contact-info)
 - [Table of Contents](#table-of-contents)
   - [Back to Basics: Core Concepts Explained](#back-to-basics-core-concepts-explained)
     - [What is Generative AI and LLM](#what-is-generative-ai-and-llm)
