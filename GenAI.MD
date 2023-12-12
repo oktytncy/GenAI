@@ -1,32 +1,76 @@
+# Generative AI with Large Language Models
+- [Generative AI with Large Language Models](#generative-ai-with-large-language-models)
+  - [Back to Basics: Core Concepts Explained](#back-to-basics-core-concepts-explained)
+    - [What is Generative AI and LLM](#what-is-generative-ai-and-llm)
+    - [LLM Use Cases and Practical Tasks](#llm-use-cases-and-practical-tasks)
+    - [The Foundations of Text Generation](#the-foundations-of-text-generation)
+  - [Technical Perspectives](#technical-perspectives)
+    - [Transformer Architecture](#transformer-architecture)
+      - [Working Principle](#working-principle)
+    - [Generating Text with Transformer Models](#generating-text-with-transformer-models)
+    - [Prompt Engineering Basics](#prompt-engineering-basics)
+    - [Generative configuration](#generative-configuration)
+    - [GenAI Projects Lifecycle](#genai-projects-lifecycle)
+      - [Identification of Use-Case and It's Scope](#identification-of-use-case-and-its-scope)
+      - [Model Selection](#model-selection)
+      - [Adapt and Align model](#adapt-and-align-model)
+      - [Application Integration](#application-integration)
+    - [Pre-Training LLMs](#pre-training-llms)
+    - [Challenges of training LLMs](#challenges-of-training-llms)
+    - [Optimal Computational Models](#optimal-computational-models)
+    - [Domain Adaptation](#domain-adaptation)
+  - [Instruction of LLM Fine-Tuning](#instruction-of-llm-fine-tuning)
+    - [Single-Task Fine-Tuning](#single-task-fine-tuning)
+    - [Model Evaluation](#model-evaluation)
+    - [Benchmarks and Results](#benchmarks-and-results)
+  - [Optimized Parameter Adjustment for Enhanced Model Training](#optimized-parameter-adjustment-for-enhanced-model-training)
+    - [PEFT Methods](#peft-methods)
+      - [PEFT Trade-offs](#peft-trade-offs)
+      - [PEFT techniques 1: LoRA](#peft-techniques-1-lora)
+      - [PEFT techniques 2: Soft Prompts](#peft-techniques-2-soft-prompts)
+  - [Aligning Models with Human Values](#aligning-models-with-human-values)
+  - [Reinforcement Learning From Human Feedback (RLHF)](#reinforcement-learning-from-human-feedback-rlhf)
+    - [RLHF: Obtaining Feedback From Humans](#rlhf-obtaining-feedback-from-humans)
+    - [RLHF: Reward model](#rlhf-reward-model)
+    - [RLHF: Fine-Tuning with Reinforcement Learning](#rlhf-fine-tuning-with-reinforcement-learning)
+    - [RLHF: Reward Hacking](#rlhf-reward-hacking)
+    - [Scaling Human Feedback](#scaling-human-feedback)
+  - [Model Optimizations for Deployment](#model-optimizations-for-deployment)
+  - [Generative AI - Time and Effort in the Lifecycle](#generative-ai---time-and-effort-in-the-lifecycle)
+  - [LLM and Applications](#llm-and-applications)
+  - [Program-Aided Language Models (PAL)](#program-aided-language-models-pal)
 
 ## Back to Basics: Core Concepts Explained
 
 ### What is Generative AI and LLM
+
 Generative AI refers to the type of artificial intelligence that can generate new content based on the data it has learned from. It's like teaching a computer to be creative. For example, after showing a generative AI lots of pictures of cats, it can create a brand new image of a cat that doesn't exist. Or, if you feed it lots of music, it might be able to compose a new song in the style of what it's heard.
 
 LLM stands for **Large Language Model**, which is a type of AI that's been trained on a huge amount of text. It's designed to understand and generate human-like text by predicting what word comes next in a sentence. Because it's read so much text, it can do a lot of cool things with words.
 
 ### LLM Use Cases and Practical Tasks
 
-Large Language Models (LLMs) like generative AI are commonly associated with chatbot functions due to their visibility and popularity. However, the underlying next-word prediction technology enables a wide range of text generation tasks, such as essay writing, summarizing dialogues, and translation between languages or into machine code. 
+Large Language Models (LLMs) like generative AI are commonly associated with chatbot functions due to their visibility and popularity. However, the underlying next-word prediction technology enables a wide range of text generation tasks, such as essay writing, summarizing dialogues, and translation between languages or into machine code.
 
-Moreover, LLMs can perform specific tasks like named entity recognition, extracting information such as people and places from texts. The potential of LLMs extends to interfacing with external data sources and APIs, enhancing their capabilities beyond their initial training. 
+Moreover, LLMs can perform specific tasks like named entity recognition, extracting information such as people and places from texts. The potential of LLMs extends to interfacing with external data sources and APIs, enhancing their capabilities beyond their initial training.
 
 With the growth in the scale of foundation models, the nuanced understanding and processing ability of language by these models have significantly improved, making them adept at solving complex tasks, although smaller models can also be specialized for particular functions.
 
 ### The Foundations of Text Generation
 
-Generative algorithms have been around for some time, with earlier language models relying on recurrent neural networks (RNNs). While RNNs were advanced for their era, they required substantial computational power and memory to perform generative tasks effectively. 
+Generative algorithms have been around for some time, with earlier language models relying on recurrent neural networks (RNNs). While RNNs were advanced for their era, they required substantial computational power and memory to perform generative tasks effectively.
 
 An RNN that tries to predict the next word with limited previous words tends to fail because it lacks sufficient context to make accurate predictions. The complexity of the language further compounds this difficulty.
 
-The transformative moment for generative AI came with the 2017 paper [Attention is All You Need](https://arxiv.org/abs/1706.03762), introducing the transformer architecture. 
+The transformative moment for generative AI came with the 2017 paper [Attention is All You Need](https://arxiv.org/abs/1706.03762), introducing the transformer architecture.
 
 This new model is more efficient, capable of parallel processing, and uses larger datasets, which importantly allows it to understand the meaning of words through its attention mechanism, marking a significant advance in AI capabilities.
 
+## Technical Perspectives
+
 ### Transformer Architecture
 
-Transformers are a type of language model that performs much better than older ones on language tasks. They can understand the importance of each word in a sentence by using something called attention weights. 
+Transformers are a type of language model that performs much better than older ones on language tasks. They can understand the importance of each word in a sentence by using something called attention weights.
 
 This lets the model figure out complex relationships.
 
@@ -34,7 +78,7 @@ This lets the model figure out complex relationships.
 
 Did the teacher teach using the book or did the student have the book or was it both?
 
-In 2017, a groundbreaking paper called **Attention Is All You Need** was published by researchers from Google and the University of Toronto. 
+In 2017, a groundbreaking paper called **Attention Is All You Need** was published by researchers from Google and the University of Toronto.
 
 This introduced the transformer architecture, which has led to the advancements in AI that we see today. Transformers are efficient because they can be scaled to run on many GPU cores, allowing them to handle big datasets all at once.
 
@@ -46,7 +90,7 @@ Self-attention is a feature that helps a model understand how words in a sentenc
   <img src="images/1.png" alt="drawing" width="500"/>
 </p>
 
-Transformers consist of encoders and decoders that process language by first converting words into numerical forms, a step known as tokenization. 
+Transformers consist of encoders and decoders that process language by first converting words into numerical forms, a step known as tokenization.
 
 A specific layer then interprets the meanings of these numerical values. The model also maintains the sequence of words to make sense of sentences. It employs multiple **attention heads** to focus on various elements of language, which helps it predict what word comes next with high accuracy.
 
@@ -56,11 +100,11 @@ A specific layer then interprets the meanings of these numerical values. The mod
   <img src="images/2.png" alt="drawing" width="500"/>
 </p>
 
-Machine learning models are essentially complex statistical tools that need to work with numbers instead of words. To prepare text for these models, you have to convert words into numerical values through tokenization. 
+Machine learning models are essentially complex statistical tools that need to work with numbers instead of words. To prepare text for these models, you have to convert words into numerical values through tokenization.
 
-There are different ways to tokenize, some match whole words to numbers, and some match parts of words. It's crucial to use the same tokenization method throughout the training and text generation process. 
+There are different ways to tokenize, some match whole words to numbers, and some match parts of words. It's crucial to use the same tokenization method throughout the training and text generation process.
 
-Once words are tokenized, they're fed into an embedding layer. This layer is a place where each number (representing a word or part of a word) gets a unique vector in a high-dimensional space. These vectors help the model understand the meaning and context of words. 
+Once words are tokenized, they're fed into an embedding layer. This layer is a place where each number (representing a word or part of a word) gets a unique vector in a high-dimensional space. These vectors help the model understand the meaning and context of words.
 
 This concept isn't new; it's been used in earlier language processing tools like Word2vec.
 
@@ -70,13 +114,13 @@ The model processes each of the input tokens in parallel. So, by adding position
   <img src="images/3.png" alt="drawing" width="450"/>
 </p>
 
-Here, the model analyzes the relationships between the tokens in your input sequence. This allows the model to attend to different parts of the input sequence to better capture the contextual dependencies between the words. 
+Here, the model analyzes the relationships between the tokens in your input sequence. This allows the model to attend to different parts of the input sequence to better capture the contextual dependencies between the words.
 
 The self-attention weights that are learned during training and stored in these layers reflect the importance of each word in that input sequence to all other words in the sequence.
 
-But this does not happen just once, the transformer architecture actually has multi-headed self-attention. This means that multiple sets of self-attention weights or heads are learned in parallel independently of each other. 
+But this does not happen just once, the transformer architecture actually has multi-headed self-attention. This means that multiple sets of self-attention weights or heads are learned in parallel independently of each other.
 
-For example, one head may see the relationship between the people entities in our sentence. While another head may focus on the activity of the sentence. Another head may focus on some other properties such as if the words rhyme. 
+For example, one head may see the relationship between the people entities in our sentence. While another head may focus on the activity of the sentence. Another head may focus on some other properties such as if the words rhyme.
 
 It is important to note that you do not dictate ahead of time what aspects of language the attention heads will learn. The weights of each head are randomly initialized and given sufficient training data and time, each will learn different aspects of language.
 
@@ -84,11 +128,11 @@ It is important to note that you do not dictate ahead of time what aspects of la
   <img src="images/4.png" alt="drawing" width="130"/>
 </p>
 
-Now that all of the attention weights have been applied to your input data, the output is processed through a fully connected feed-forward network. 
+Now that all of the attention weights have been applied to your input data, the output is processed through a fully connected feed-forward network.
 
 The output of this layer is a vector of logits proportional to the probability score for each and every token in the tokenizer dictionary.
 
-You can then pass these logits to a final **softmax layer**, where they are normalized into a probability score for each word. This output includes a probability for every single word in the vocabulary, so there is likely to be thousands of scores here. 
+You can then pass these logits to a final **softmax layer**, where they are normalized into a probability score for each word. This output includes a probability for every single word in the vocabulary, so there is likely to be thousands of scores here.
 
 One single token will have a score higher than the rest. This is the most likely predicted token.
 
@@ -104,11 +148,11 @@ Decoder-only models, like the GPT series and others, are very common and versati
 
 | Encoder Only | Decode Only    | Encoder + Decoder |
 | -----------  | -------------- | ----------------- |
-| BERT         | Transformer-XL |  Transormer 		|
-| RoBerta      | XLNet          |  XLM 				|
-| Reformer 	   | GPT Series     |  T5               |
+| BERT         | Transformer-XL |  Transormer|
+| RoBerta      | XLNet          |  XLM|
+| Reformer   | GPT Series     |  T5               |
 | FlauBERT     | Cohere         |  BART             |
-| CamemBERT	   | DialoGPT       |  XLM-RoBerta      |
+| CamemBERT   | DialoGPT       |  XLM-RoBerta      |
 | Electra      |                |  Pegasus          |
 | MobileBERT   |                |  mBART            |
 
@@ -124,26 +168,25 @@ You may need to review the language or spelling in your prompt several times to 
 
 One of the powerful strategies that will enable the model to produce better results is to include examples of tasks that you want the model to perform in the prompt.
 
-Providing examples inside the context window is called in-context learning. With in-context learning, you can help LLMs learn more about the task being asked by including examples or additional data in the prompt. 
+Providing examples inside the context window is called in-context learning. With in-context learning, you can help LLMs learn more about the task being asked by including examples or additional data in the prompt.
 
 <p align="middle">
   <img src="images/6.png" alt="drawing" width="500"/>
 </p>
 
-In the example given, you're using a language model to figure out if a song review is positive or negative. You do this by telling the model, *Classify this review*, and then you show it the review. 
+In the example given, you're using a language model to figure out if a song review is positive or negative. You do this by telling the model, *Classify this review*, and then you show it the review.
 
-The model is supposed to read the review and then say if the review is positive or negative. This approach, where you just give the model a task and some information without any extra training, is called **zero-shot inference**. 
+The model is supposed to read the review and then say if the review is positive or negative. This approach, where you just give the model a task and some information without any extra training, is called **zero-shot inference**.
 
 The biggest and most advanced language models are really good at understanding these kinds of tasks and giving the right answers, even if they've never done that exact task before.
 
-In this example, the model correctly identifies the sentiment as positive. 
+In this example, the model correctly identifies the sentiment as positive.
 
 <p align="middle">
   <img src="images/7.png" alt="drawing" width="500"/>
 </p>
 
-
-Smaller models, like GPT-2, may not do as well with zero-shot inference, which means they might not understand or complete tasks correctly without specific training. 
+Smaller models, like GPT-2, may not do as well with zero-shot inference, which means they might not understand or complete tasks correctly without specific training.
 
 If you ask a smaller model to classify the sentiment of a review, it might just write something related to the review but not actually say if the sentiment is positive or negative. It struggles to grasp the specific task you're asking it to perform.
 
@@ -151,11 +194,11 @@ If you ask a smaller model to classify the sentiment of a review, it might just 
   <img src="images/8.png" alt="drawing" width="500"/>
 </p>
 
-Giving a model an example can make it do better at a task. You can make the prompt longer and start with an example that shows the model what to do. 
+Giving a model an example can make it do better at a task. You can make the prompt longer and start with an example that shows the model what to do.
 
 For instance, after you tell the model to classify a review, you can add a review like *I loved this song* and then show the model how to analyze it by writing *Positive sentiment.* This is like giving the model a hint about what you expect it to do.
 
-By including an example in the prompt, you're showing the smaller model what you want it to do. First, you give it an example of a review and the correct sentiment analysis (like *Positive* for a good review). 
+By including an example in the prompt, you're showing the smaller model what you want it to do. First, you give it an example of a review and the correct sentiment analysis (like *Positive* for a good review).
 
 Then you repeat the instruction and add the new review you actually want to be analyzed. This longer prompt helps the smaller model understand the task and how to respond. This method, where you give one example to guide the model, is called **one-shot inference**, which is different from zero-shot inference where no examples are provided.
 
@@ -163,9 +206,9 @@ Then you repeat the instruction and add the new review you actually want to be a
   <img src="images/9.png" alt="drawing" width="500"/>
 </p>
 
-If one example isn't enough for the model to understand a task, you can use a **few-shot inference** approach. This means giving the model several examples. 
+If one example isn't enough for the model to understand a task, you can use a **few-shot inference** approach. This means giving the model several examples.
 
-For instance, if a model didn't do well with one-shot inference for sentiment analysis, you might give it two examples: one with a positive review and another with a negative review. 
+For instance, if a model didn't do well with one-shot inference for sentiment analysis, you might give it two examples: one with a positive review and another with a negative review.
 
 By showing the model different kinds of reviews and the right sentiment analysis for each, you help it learn what you're asking for. When you then give it the actual review you want analyzed, the model is more likely to understand the task and give you the correct sentiment, positive or negative.
 
@@ -173,7 +216,7 @@ By showing the model different kinds of reviews and the right sentiment analysis
   <img src="images/10.png" alt="drawing" width="500"/>
 </p>
 
-Prompt engineering involves designing your prompts to help the model learn from examples. Big models can often understand tasks with zero examples (zero-shot inference), but smaller models might need one example (one-shot inference) or a few (few-shot inference) to perform well. 
+Prompt engineering involves designing your prompts to help the model learn from examples. Big models can often understand tasks with zero examples (zero-shot inference), but smaller models might need one example (one-shot inference) or a few (few-shot inference) to perform well.
 
 However, there's a limit to how much information you can include in a prompt because of the model's context window—the amount of text it can look at one time.
 
@@ -187,21 +230,21 @@ The bigger a model is, meaning the more parameters it has, the better it can und
   <img src="images/11.png" alt="drawing" width="300"/>
 </p>
 
-Lets examine some of the methods and associated configuration parameters that you can use to influence the way that the model makes the final decision about next-word generation. 
+Lets examine some of the methods and associated configuration parameters that you can use to influence the way that the model makes the final decision about next-word generation.
 
 If you've used LLMs on playgrounds like the Hugging Face website, or Cohere, you may have been presented with controls like this to adjust how the LLM behaves. Each model introduces a set of configuration parameters that can affect the model's output during inference.
 
 Note that these are different from the training parameters learned during the training period. Instead, these configuration parameters are called at inference time, giving you control over things like the maximum number of tokens in completion and how creative the output is.
 
-**Max new tokens** is probably the simplest of these parameters, and you can use it to limit the number of tokens that the model will generate. You can think of this as putting a cap on the number of times the model will go through the selection process. 
+**Max new tokens** is probably the simplest of these parameters, and you can use it to limit the number of tokens that the model will generate. You can think of this as putting a cap on the number of times the model will go through the selection process.
 
-The output from the transformer's softmax layer is a probability distribution across the entire dictionary of words that the model uses. 
+The output from the transformer's softmax layer is a probability distribution across the entire dictionary of words that the model uses.
 
 <p align="middle">
   <img src="images/12.png" alt="drawing" width="500"/>
 </p>
 
-Here you can see a selection of words and their probability score next to them. Although we are only showing four words here, imagine that this is a list that carries on to the complete dictionary. Most large language models by default will operate with so-called **Greedy decoding**. 
+Here you can see a selection of words and their probability score next to them. Although we are only showing four words here, imagine that this is a list that carries on to the complete dictionary. Most large language models by default will operate with so-called **Greedy decoding**.
 
 Greedy decoding in language models always picks the next word with the highest probability score. While this can be effective for short texts, it can lead to repetition in longer ones. To make the text more varied and creative, you can use a method called **Random sampling**.
 
@@ -231,33 +274,33 @@ If the temperature is set to one, it means no adjustment is made, and the origin
 
 The diagram above belongs to the overall life cycle that we will go into step by step.
 
-#### Scope
+#### Identification of Use-Case and It's Scope
 
-When starting a project, it's crucial to clearly define the project's scope as specifically as possible. Large language models (LLMs) have a range of capabilities based on their size and design, and you must consider what role the LLM will play in your project. 
+When starting a project, it's crucial to clearly define the project's scope as specifically as possible. Large language models (LLMs) have a range of capabilities based on their size and design, and you must consider what role the LLM will play in your project.
 
 Decide whether you need the LLM to perform various complex tasks, like generating extensive texts, or a single specific task, such as identifying named entities. Being precise about your LLM's required functions can save time and reduce computing expenses.
 
-#### Select
+#### Model Selection
 
-After you've clearly defined your model requirements and are ready to start development, you need to decide whether to train a new model from scratch or use an existing one. 
+After you've clearly defined your model requirements and are ready to start development, you need to decide whether to train a new model from scratch or use an existing one.
 
 Usually, you'll begin with a pre-trained model, but there might be situations where training a new model from the beginning is necessary.
 
 #### Adapt and Align model
 
-Once you have your model, evaluate its performance and consider additional training for your specific needs. Start with prompt engineering, using relevant examples to guide the model. If performance is still lacking, fine-tuning the model is an option. 
+Once you have your model, evaluate its performance and consider additional training for your specific needs. Start with prompt engineering, using relevant examples to guide the model. If performance is still lacking, fine-tuning the model is an option.
 
 As models advance, ensuring they align with human preferences and behave appropriately is vital. You might also use a method called reinforcement learning with human feedback to refine the model's behavior. Remember, this process of adapting and aligning your application is iterative, often involving cycles of prompt engineering, fine-tuning, and evaluation to achieve the desired performance.
 
 #### Application Integration
 
-Once your model performs well and aligns with your goals, you can integrate it into your system. Optimize the model for deployment to use your computational resources efficiently and offer the best user experience. 
+Once your model performs well and aligns with your goals, you can integrate it into your system. Optimize the model for deployment to use your computational resources efficiently and offer the best user experience.
 
 Also, consider any extra infrastructure needed for your application to function effectively. Be aware of inherent limitations of large language models, such as fabricating information or struggling with complex reasoning and math, which might not be fully addressed through training.
 
 ### Pre-Training LLMs
 
-Launching a generative AI app involves several steps. 
+Launching a generative AI app involves several steps.
 
 First, determine your app's needs and how the large language model (LLM) will function within it. Then choose whether to use an existing model or train a new one. While there are benefits to training from scratch, most developers start with an existing open-source model from AI community resources, such as those on Hugging Face or PyTorch hubs.
 
@@ -309,11 +352,11 @@ To recap the comparison between model architectures based on their pre-training 
 
 Larger models in AI are typically more capable of carrying out their tasks well. Researchers have found that the larger a model, the more likely it is to work as you needed to without additional in-context learning or further training.
 
-This observed trend of increased model capability with size has driven the development of larger and larger models in recent years. This growth has been supported by milestones and research such as the introduction of highly scalable transformer architecture, access to large amounts of data for training, and the development of more powerful computing resources. 
+This observed trend of increased model capability with size has driven the development of larger and larger models in recent years. This growth has been supported by milestones and research such as the introduction of highly scalable transformer architecture, access to large amounts of data for training, and the development of more powerful computing resources.
 
 This steady increase in model size actually led some researchers to hypothesize the existence of a new Moores law for LLMs.
 
-Where could this model growth lead? While this may sound great, it turns out that training these enormous models is difficult and very expensive, so much so that it may be infeasible to continuously train larger and larger models. 
+Where could this model growth lead? While this may sound great, it turns out that training these enormous models is difficult and very expensive, so much so that it may be infeasible to continuously train larger and larger models.
 
 ### Challenges of training LLMs
 
@@ -330,7 +373,7 @@ A single parameter is typically represented by a 32-bit float, and a 32-bit floa
 
 This is a lot of memory, and note that only the memory required to store the model weights so far is taken into account.
 
-To train a large language model, you need much more GPU memory than just for storing the model's weights. Training involves additional memory for components like **Adam optimizer** states, gradients, activations, and temporary variables. 
+To train a large language model, you need much more GPU memory than just for storing the model's weights. Training involves additional memory for components like **Adam optimizer** states, gradients, activations, and temporary variables.
 
 - **Note:** The Adam optimizer is an algorithm for gradient-based optimization of stochastic objective functions, based on adaptive estimates of lower-order moments. The name "Adam" stands for "Adaptive Moment Estimation"
 
@@ -338,9 +381,9 @@ This can add up to 20 bytes per parameter. Therefore, training a one billion par
 
 So, what options do you have to reduce the memory required for training?
 
-Quantization is a method used to reduce the memory needed for a model by lowering the precision of its weights. 
+Quantization is a method used to reduce the memory needed for a model by lowering the precision of its weights.
 
-Remember basics of computer science, 1 byte has 8 bits, and to store 32 bits you will need 32/8=4 bytes. To store an integer you need 1 byte and to store a number with a decimal, depends on how many digits there are after the decimal. There is also one bit for decimal separator. 
+Remember basics of computer science, 1 byte has 8 bits, and to store 32 bits you will need 32/8=4 bytes. To store an integer you need 1 byte and to store a number with a decimal, depends on how many digits there are after the decimal. There is also one bit for decimal separator.
 
 Let's say you have a model with 1 Billion parameters and each parameter stores a floating point number. That's a lot of memory.
 
@@ -362,7 +405,7 @@ Quantization should be considered based on its impact on model accuracy. There a
 
 The goal of quantization is to reduce the memory required to store and train models by reducing the precision of the model weights.
 
-In summary, you can use quantization to reduce the memory footprint of the model during training. 
+In summary, you can use quantization to reduce the memory footprint of the model during training.
 
 BFLOAT16 has become a popular choice of precision in deep learning as it maintains the dynamic range of FP32 but reduces the memory footprint by half. Many LLMs, including FLAN-T5, have been pre-trained with BFOLAT16.
 
@@ -383,21 +426,21 @@ However, many modern models have 50 billion or more parameters, which could requ
 
 This high cost is a key reason why most individuals and organizations don't train their own large models from scratch. Instead, they often fine-tune pre-trained models, which still requires substantial memory to manage all the training parameters.
 
-#### Optimal Computational Models
+### Optimal Computational Models
 
 The size of a model and its training setup are key factors in achieving optimal performance. During pre-training, the aim is to reduce the loss in token prediction. To enhance performance, one can either expand the dataset size or increase the model's parameters. Ideally, both could be scaled up for better results.
 
 Yet, practical constraints like the available compute budget must be considered. This includes the number of GPUs at one's disposal and the time allotted for model training. These limitations are crucial in deciding the feasible size and training scope for a model.
 
-To help you understand some of the discussion ahead, lets first define a unit of compute that quantifies the required resources. 
-A petaFLOP per second day is a measurement of the number of floating point operations performed at a rate of one petaFLOP per second, running for an entire day. Note, one petaFLOP corresponds to one quadrillion floating point operations per second. 
+To help you understand some of the discussion ahead, lets first define a unit of compute that quantifies the required resources.
+A petaFLOP per second day is a measurement of the number of floating point operations performed at a rate of one petaFLOP per second, running for an entire day. Note, one petaFLOP corresponds to one quadrillion floating point operations per second.
 When specifically thinking about training transformers, one petaFLOP per second day is approximately equivalent to eight NVIDIA V100 GPUs, operating at full efficiency for one full day.
 
-To quantify the resources needed for training models, we use the unit "petaFLOP per second day." This measures the amount of computational work done at the rate of one petaFLOP (one quadrillion floating point operations) per second over the span of one day. 
+To quantify the resources needed for training models, we use the unit "petaFLOP per second day." This measures the amount of computational work done at the rate of one petaFLOP (one quadrillion floating point operations) per second over the span of one day.
 
 **For context, this is roughly equal to what eight NVIDIA V100 GPUs can perform at full efficiency in a 24-hour period.**
 
-If you have a more powerful processor that can carry out more operations at once, then a petaFLOP per second day requires fewer chips. For example, four NVIDIA A100 GPUs give equivalent compute to the eleven V100 chips. 
+If you have a more powerful processor that can carry out more operations at once, then a petaFLOP per second day requires fewer chips. For example, four NVIDIA A100 GPUs give equivalent compute to the eleven V100 chips.
 
 <p align="middle">
   <img src="images/22.png" alt="drawing" width="500"/>
@@ -421,7 +464,7 @@ The [Chinchilla paper](https://arxiv.org/abs/2203.15556), led by researchers Jor
 
 Their objective was to determine the ideal number of parameters and the amount of data needed to train models effectively within a specific compute budget. The model that emerged from their research, which they termed the **compute optimal** model, was named Chinchilla, and the paper itself is commonly known as the Chinchilla paper.
 
-The Chinchilla paper suggests that some 100 billion parameter models, such as GPT-3, might be over-parameterized, possessing more parameters than necessary for an effective grasp of language. 
+The Chinchilla paper suggests that some 100 billion parameter models, such as GPT-3, might be over-parameterized, possessing more parameters than necessary for an effective grasp of language.
 
 They also indicate these models are under-trained and could improve with exposure to more data. The researchers propose that smaller models might reach the same level of performance as their larger counterparts by training on more extensive datasets. This hypothesis challenges the trend of increasing model size and emphasizes the potential of data scale for model effectiveness.
 
@@ -447,7 +490,7 @@ This need for domain-specific understanding was addressed by the [BloombergGPT m
 
 These real-world constraints exemplify the trade-offs that developers might face when pre-training models for particular domains. Despite such limitations, BloombergGPT was able to achieve best-in-class performance in financial benchmarks while also performing competitively on general-purpose LLM benchmarks.
 
-### Instruction of LLM Fine-Tuning
+## Instruction of LLM Fine-Tuning
 
 Some models can understand instructions and respond correctly without any prior examples. This is called zero shot inference. However, smaller language models might not do this well.
 
@@ -461,13 +504,13 @@ Fine-tuning is when you teach a language model using a set of examples that have
 
 There's a special method called instruction fine-tuning. This is really effective in making the model perform well across different types of tasks.
 
-Lets take a closer look at how this works. 
+Lets take a closer look at how this works.
 
 <p align="middle">
   <img src="images/25.png" alt="drawing" width="500"/>
 </p>
 
-Instruction fine-tuning trains the model to respond to certain instructions. Here's how it works: you give the model examples that show what kind of answer you want. 
+Instruction fine-tuning trains the model to respond to certain instructions. Here's how it works: you give the model examples that show what kind of answer you want.
 
 For instance, if the instruction is 'classify this review,' the model should reply with a text like 'sentiment: positive' or 'sentiment: negative.'
 
@@ -477,9 +520,9 @@ If you want your model to get better at summarizing, you create a set of example
 
 <span style="color:red">Keep in mind, full fine-tuning needs a lot of memory and computing power.</span>. It's important to have the right resources for handling all the updates during training.
 
-To start fine-tuning a language model, first, you need the right training data. There are many datasets available that were used to train older language models, but they might not be in the form of instructions. 
+To start fine-tuning a language model, first, you need the right training data. There are many datasets available that were used to train older language models, but they might not be in the form of instructions.
 
-Fortunately, developers have created prompt template libraries. These libraries help turn existing datasets, like a large collection of Amazon product reviews, into datasets with instructions for fine-tuning. 
+Fortunately, developers have created prompt template libraries. These libraries help turn existing datasets, like a large collection of Amazon product reviews, into datasets with instructions for fine-tuning.
 
 These libraries have templates for different tasks and datasets.
 
@@ -529,7 +572,7 @@ To avoid this problem, called catastrophic forgetting, you have a couple of opti
 
 In this case, the dataset has examples for different tasks like summarizing, rating reviews, translating code, and recognizing entities. By training the model with this mixed dataset, it gets better at all these tasks at the same time. This helps avoid catastrophic forgetting.
 
-Over many epochs of training, the calculated losses across examples are used to update the weights of the model, resulting in an instruction tuned model that is learned how to be good at many different tasks simultaneously. 
+Over many epochs of training, the calculated losses across examples are used to update the weights of the model, resulting in an instruction tuned model that is learned how to be good at many different tasks simultaneously.
 
 A challenge with this multi-task fine-tuning is that it needs a lot of examples – maybe 50,000 to 100,000. But putting together this data can be very beneficial. The models created this way can perform well in many different tasks, which is great for situations where you need versatility.
 
@@ -610,9 +653,9 @@ This approach allows the model to learn the specific ways your company prefers t
 
 ### Model Evaluation
 
-How can you formalize the improvement in performance of your fine-tuned model over the pre-trained model you started with? 
+How can you formalize the improvement in performance of your fine-tuned model over the pre-trained model you started with?
 
-Let's explore several metrics that are used by developers of large language models that you can use to assess the performance of your models and compare them to other models out in the world. 
+Let's explore several metrics that are used by developers of large language models that you can use to assess the performance of your models and compare them to other models out in the world.
 
 In traditional machine learning, you can assess how well a model is doing by looking at its performance on training and validation data sets where the output is already known.
 
@@ -622,18 +665,19 @@ In traditional machine learning, you can assess how well a model is doing by loo
 
 You can calculate simple metrics such as accuracy, which states the fraction of all predictions that are correct because the models are deterministic. However with large language models where the output is non-deterministic and language-based evaluation is much more challenging.
 
-Take, for example, the sentence,
+Take, for example, the sentence:
+
 - Mike really loves drinking tea.
   
 This is quite similar to
 
 - Mike adores sipping tea.
 
-But how do you measure the similarity? Lets look at these other two sentences. 
+But how do you measure the similarity? Lets look at these other two sentences.
 
-- Mike does not drink coffee. 
-- Mike does drink coffee. 
- 
+- Mike does not drink coffee.
+- Mike does drink coffee.
+
 There is only one-word difference between these two sentences. However, its meaning is completely different.
 
 We can now see the similarities and differences for people like us with soft organic brains. But when you train a model with millions of sentences, you need an automated, structured way to measure.
@@ -654,20 +698,20 @@ It's interesting to note that **BLEU** is French for blue. Some people might say
   <img src="images/38.png" alt="drawing" width="300"/>
 </p>
 
-Let's review some terminology. 
+Let's review some terminology.
 
 In language anatomy, a unigram is equivalent to a single word. A bigram consists of two words and an n-gram is a group of n words.
 
-Let's start by examining the ROUGE-1 metric. 
+Let's start by examining the ROUGE-1 metric.
 
 Consider a sentence made by a human;
 
 - It is cold outside.
- 
+
 And a machine-generated sentence;
 
-- It is very cold outside. 
- 
+- It is very cold outside.
+
 We can evaluate these using metrics common in machine learning, like recall, precision, and F1.
 
 Recall, in this context, is calculated by comparing the number of matching words (or unigrams) in both the reference and the generated sentence. This total is then divided by the number of words in the original, human-made sentence.
@@ -678,7 +722,7 @@ Recall, in this context, is calculated by comparing the number of matching words
 
 In our example, the recall score is a perfect one, because all the words in the generated sentence are also in the reference sentence. Precision is calculated by dividing the number of matching unigrams by the total number of words in the generated sentence.
 
-The F1 score combines recall and precision, taking their harmonic mean. These are basic metrics focusing solely on individual words - that's why it's called ROUGE-1. 
+The F1 score combines recall and precision, taking their harmonic mean. These are basic metrics focusing solely on individual words - that's why it's called ROUGE-1.
 
 They don't take into account the order of the words, which can sometimes be misleading. It's possible to create sentences that score high but don't actually sound right.
 
@@ -809,7 +853,7 @@ Lets see how you can use PEFT to improve the situation.
   <img src="images/47.png" alt="drawing" width="500"/>
 </p>
 
-In parameter-efficient fine-tuning, you only train a small number of weights. This leads to a much smaller overall size, sometimes as little as a few megabytes, depending on the task. 
+In parameter-efficient fine-tuning, you only train a small number of weights. This leads to a much smaller overall size, sometimes as little as a few megabytes, depending on the task.
 
 These new parameters work together with the original large language model (LLM) weights during inference. The PEFT weights are trained for each specific task and can be easily switched for different tasks. This makes it possible to adapt the original model to many tasks efficiently.
 
@@ -844,7 +888,7 @@ Now, let's focus on LoRA, a technique for parameter-efficient fine-tuning. It's 
   <img src="images/50.png" alt="drawing" width="400"/>
 </p>
 
-Let's quickly review the transformer model mentioned earlier. 
+Let's quickly review the transformer model mentioned earlier.
 
 First, the input text is broken down into tokens. These tokens are then turned into embedding vectors. These vectors go through the transformer's encoder and/or decoder.
 
@@ -915,11 +959,11 @@ Choosing the rank for the LoRA matrices is an important decision and still an ar
 
 In the paper where LoRA was first introduced, Microsoft researchers explored how different choices of rank impacted the model performance on language generation tasks.
 
-You can see the summary of the results in the table here. The table shows the rank of the LoRA matrices in the first column, the final loss value of the model, and the scores for different metrics, including BLEU and ROUGE. The bold values indicate the best scores that were achieved for each metric. The authors found a plateau in the loss value for ranks greater than 16. 
+You can see the summary of the results in the table here. The table shows the rank of the LoRA matrices in the first column, the final loss value of the model, and the scores for different metrics, including BLEU and ROUGE. The bold values indicate the best scores that were achieved for each metric. The authors found a plateau in the loss value for ranks greater than 16.
 
-In other words, using larger LoRA matrices didnt improve performance. 
+In other words, using larger LoRA matrices didnt improve performance.
 
-The takeaway here is that ranks in the range of 4-32 can provide you with a good trade-off between reducing trainable parameters and preserving performance. Optimizing the choice of rank is an ongoing area of research and best practices may evolve as more practitioners like you make use of LoRA. 
+The takeaway here is that ranks in the range of 4-32 can provide you with a good trade-off between reducing trainable parameters and preserving performance. Optimizing the choice of rank is an ongoing area of research and best practices may evolve as more practitioners like you make use of LoRA.
 
 LoRA is a powerful fine-tuning method that achieves great performance. The principles behind the method are useful not just for training LLMs, but for models in other domains.
 
@@ -933,13 +977,13 @@ It's worth noting that prompt tuning might seem similar to prompt engineering, b
   <img src="images/8.png" alt="drawing" width="500"/>
 </p>
 
-Prompt engineering involves tweaking the language of your prompt to get the desired response from the model. This could be as simple as changing words or phrases, or more complex, like adding examples for one-shot or few-shot inference. 
+Prompt engineering involves tweaking the language of your prompt to get the desired response from the model. This could be as simple as changing words or phrases, or more complex, like adding examples for one-shot or few-shot inference.
 
-The aim is to make it easier for the model to understand what you're asking and to produce a better response. 
+The aim is to make it easier for the model to understand what you're asking and to produce a better response.
 
 However, prompt engineering has its limits. It can take a lot of effort to write and test different prompts. You're also constrained by the maximum length of the input the model can handle. Despite all the effort, you might still not get the performance level you need for your specific task.
 
-In prompt tuning, you add extra trainable tokens to your prompt, allowing the supervised learning process to figure out their best values. These trainable tokens are known as a **soft prompt**. 
+In prompt tuning, you add extra trainable tokens to your prompt, allowing the supervised learning process to figure out their best values. These trainable tokens are known as a **soft prompt**.
 
 They are added to the start of the embedding vectors that represent your input text. The soft prompt vectors are the same size as the embedding vectors of the language tokens. Generally, including about 20 to 100 of these virtual tokens is enough to achieve good results.
 
@@ -947,33 +991,33 @@ They are added to the start of the embedding vectors that represent your input t
   <img src="images/55.png" alt="drawing" width="400"/>
 </p>
 
-Tokens representing natural language are hard because each one corresponds to a specific spot in the embedding vector space. However, soft prompts are different. They are not fixed, discrete words from natural language. 
+Tokens representing natural language are hard because each one corresponds to a specific spot in the embedding vector space. However, soft prompts are different. They are not fixed, discrete words from natural language.
 
 Instead, they are like virtual tokens that can have any value within the continuous, multidimensional embedding space. Through supervised learning, the model determines the best values for these virtual tokens to achieve the best performance for a specific task
 
-In full fine-tuning, the training data includes input prompts and output completions or labels. During this process, the weights of the large language model are updated through supervised learning. 
+In full fine-tuning, the training data includes input prompts and output completions or labels. During this process, the weights of the large language model are updated through supervised learning.
 
-On the other hand, in prompt tuning, the large language model's weights stay the same; they are frozen and don't get updated. 
+On the other hand, in prompt tuning, the large language model's weights stay the same; they are frozen and don't get updated.
 
 Instead, what changes are the embedding vectors of the soft prompt. Over time, these soft prompt vectors are updated to help the model respond better to the prompt.
 
-Prompt tuning is a very parameter efficient strategy because only a few parameters are being trained. In contrast with the millions to billions of parameters in full fine tuning, similar to what you saw with LoRA. 
+Prompt tuning is a very parameter efficient strategy because only a few parameters are being trained. In contrast with the millions to billions of parameters in full fine tuning, similar to what you saw with LoRA.
 
 <p align="middle">
   <img src="images/56.png" alt="drawing" width="400"/>
 </p>
 
-You can train a unique set of soft prompts for each specific task and then switch them easily when it's time to use the model, known as inference. For instance, you can train one set of soft prompts for Task A and another set for Task B. 
+You can train a unique set of soft prompts for each specific task and then switch them easily when it's time to use the model, known as inference. For instance, you can train one set of soft prompts for Task A and another set for Task B.
 
-When you want to use the model for a task, you just add the learned soft prompt tokens to the beginning of your input. To switch tasks, you simply replace the soft prompt with the one trained for the new task. 
+When you want to use the model for a task, you just add the learned soft prompt tokens to the beginning of your input. To switch tasks, you simply replace the soft prompt with the one trained for the new task.
 
-Soft prompts take up very little space on your computer, making this method of fine-tuning not only flexible but also very efficient. The key point is that you're using the same large language model (LLM) for all tasks; the only change you make at inference time is the set of soft prompts."
+Soft prompts take up very little space on your computer, making this method of fine-tuning not only flexible but also very efficient. The key point is that you're using the same large language model (LLM) for all tasks; the only change you make at inference time is the set of soft prompts.
 
 <p align="left">
   <img src="images/57.png" alt="drawing" width="400"/>
 </p>
 
-In the paper, Exploring the Method by Brian Lester and collaborators at Google. The authors compared prompt tuning to several other methods for a range of model sizes. 
+In the paper, Exploring the Method by Brian Lester and collaborators at Google. The authors compared prompt tuning to several other methods for a range of model sizes.
 
 In a chart from the paper, you can see the model size on the X-axis and the SuperGLUE score, a benchmark for language tasks, on the Y-axis. The red line represents scores for models fine-tuned fully on a single task, the orange line for those fine-tuned on multiple tasks, the green line for prompt tuning, and the blue line for only prompt engineering.
 
@@ -985,14 +1029,427 @@ A concern with prompt tuning is how to understand the learned virtual tokens, as
   <img src="images/58.png" alt="drawing" width="500"/>
 </p>
 
-**Conclusion:** 
-You've looked at two methods for parameter-efficient fine-tuning (PEFT): LoRA and Prompt Tuning. 
+**Conclusion:**
+You've looked at two methods for parameter-efficient fine-tuning (PEFT): LoRA and Prompt Tuning.
 
-LoRA uses rank decomposition matrices to update model parameters efficiently, while Prompt Tuning adds trainable tokens to your prompt without changing the model weights. 
+LoRA uses rank decomposition matrices to update model parameters efficiently, while Prompt Tuning adds trainable tokens to your prompt without changing the model weights.
 
 Both methods offer the potential to enhance model performance on specific tasks while requiring significantly less computing power compared to full fine-tuning methods. LoRA, in particular, is widely used because it often performs as well as full fine-tuning across many tasks and datasets.
 
+## Aligning Models with Human Values
 
+The purpose of fine-tuning models with instructions, including various methods, is to train them to better understand human-like prompts and generate more natural, human-like responses. This can greatly improve the performance of a model over its original, pre-trained version, leading to more realistic and natural language output.
 
+However, training models to produce natural human language introduces new challenges. You might have seen headlines about large language models acting inappropriately. Problems include the use of toxic language, responding in hostile or aggressive ways, and giving detailed information on dangerous topics.
 
+These issues arise because these large models are trained on massive amounts of text from the internet, which often contain such inappropriate language.
 
+## Reinforcement Learning From Human Feedback (RLHF)
+
+Think about the task of text summarization, where the goal is to use a model to create a brief summary that highlights the key points of a longer article. The aim of fine-tuning in this case is to enhance the model's summarization skills. You do this by training it with examples of summaries created by humans."
+
+<p align="left">
+  <img src="images/59.png" alt="drawing" width="400"/>
+</p>
+
+In 2020, OpenAI researchers published a study on training a model to write short summaries of text articles using [fine-tuning with human feedback](https://proceedings.neurips.cc/paper/2020/file/1f89885d556929e98d3ef9b86448f951-Paper.pdf). The results showed that a model fine-tuned with human feedback performed better than a pre-trained model, a model fine-tuned with instructions, and even surpassed the quality of summaries created by humans.
+
+<p align="left">
+  <img src="images/60.png" alt="drawing" width="500"/>
+</p>
+
+RLHF, short for Reinforcement Learning from Human Feedback, is a popular technique to fine-tune large language models (LLMs) using human feedback. This method uses reinforcement learning (RL) to train the LLM in a way that aligns more closely with human preferences.
+
+RLHF is used to ensure that the model's outputs are not only useful and relevant to the input prompt but also safe. It helps in training the model to recognize and avoid harmful content, like toxic language and sensitive topics, and to acknowledge its own limitations.
+
+One exciting possibility with RLHF is the personalization of LLMs. This means models could learn each user's individual preferences through ongoing feedback, leading to innovative technologies like tailored learning plans or personalized AI assistants. To understand how RLHF could enable such future applications, it's important to first understand how RLHF works.
+
+<p align="middle">
+  <img src="images/61.png" alt="drawing" width="300"/>
+</p>
+
+Reinforcement learning is a type of machine learning where an agent learns to make decisions to achieve a goal. It does this by performing actions in an environment and aims to maximize a cumulative reward.
+
+In this process, the agent learns from its experiences. It takes actions, observes how the environment changes, and receives rewards or penalties based on the outcomes of its actions. Through repeated cycles of this process, the agent gradually improves its strategy or policy, enabling it to make better decisions and improve its chances of success.
+
+To understand this better, consider the example of training a model to play Tic-Tac-Toe.
+
+<p align="middle">
+  <img src="images/62.png" alt="drawing" width="300"/>
+</p>
+
+In this example, the agent is a model or policy that acts like a Tic-Tac-Toe player. The goal is to win the game. The environment is the three-by-three game board, and the state at any given moment is the current configuration of the board. The action space contains all possible positions a player can choose based on the current board state. The agent makes decisions following a strategy known as RL policy.
+
+The agent learns by taking actions and receiving rewards based on how well those actions help it move toward winning the game. The goal of reinforcement learning is for the agent to discover the best possible policy for the game that maximizes its rewards. This learning happens through a process of trial and error. Initially, the agent might make random moves, leading to a new board state. From there, it continues to explore different moves and states.
+
+The series of actions and corresponding states form a playout, often called a rollout. As the agent accumulates experience, it gradually uncovers actions that yield the highest long-term rewards, ultimately leading to success in the game.
+
+<p align="middle">
+  <img src="images/63.png" alt="drawing" width="400"/>
+</p>
+
+In the context of RLHF for fine-tuning large language models (LLMs), the LLM itself is the agent's policy that drives its actions. Its goal is to generate text that aligns with human preferences, like being helpful, accurate, and non-toxic. The environment is the model's context window, where text is input through a prompt. The state is the current context, or the existing text in the context window. The action is generating text, which could be a word, a sentence, or longer text, depending on the user's task.
+
+The action space is the model's token vocabulary, comprising all possible tokens it can use to create text. The LLM decides the next token based on its training and the probability distribution over its vocabulary, influenced by the prompt text.
+
+Determining the reward in this case is more complex than in Tic-Tac-Toe. It involves evaluating how well the model's output aligns with human preferences, like whether it's non-toxic. This evaluation can be done by humans or by a secondary reward model, trained on human examples to assess LLM output and assign rewards.
+
+The LLM's weights are then updated to maximize the rewards, guiding it towards generating better, non-toxic completions. This process involves using the reward model to evaluate LLM outputs and adjust the LLM's weights accordingly, based on the optimization algorithm.
+
+In language modeling, the sequence of actions and states is known as a rollout, similar to the playout in classic reinforcement learning. The reward model is crucial in this process as it reflects the preferences learned from human feedback and influences how the LLM updates its weights through many iterations.
+
+### RLHF: Obtaining Feedback From Humans
+
+The first step in fine-tuning a large language model (LLM) using RLHF (Reinforcement Learning from Human Feedback) is to choose a suitable model. This model should already have some ability to perform the task you're interested in, like text summarization or question answering.
+
+It's often easier to begin with an instruct model. These models have been fine-tuned across various tasks and have broad capabilities. You'll use this LLM and a set of prompts to generate different responses for each prompt. Your prompt dataset will consist of various prompts, and the LLM will process each to produce a set of completions.
+
+After that, the next step is to get feedback from human reviewers on the completions the LLM generated. This step is crucial as it forms the human feedback part of RLHF.
+
+To start fine-tuning a large language model (LLM) with RLHF (Reinforcement Learning from Human Feedback), you need to decide on the criteria for human assessment of the model's outputs. This could be based on factors like helpfulness or toxicity. Once you've chosen the criteria, ask labelers to evaluate each completion in the dataset accordingly.
+
+**Consider this example:**
+
+<p align="middle">
+  <img src="images/64.png" alt="drawing" width="500"/>
+</p>
+
+The prompt given is *my house is too hot*. This is passed to the LLM, which generates three different responses. The task for the labelers is to rank these responses based on their helpfulness, from most to least helpful. In this scenario, the labeler might find the second completion the most helpful, as it provides a practical solution to cool the house, and rank it first. The other two completions might be less helpful, with the third one possibly ranked as the least helpful if it disagrees with the user's input. The labeler then ranks these accordingly.
+
+This evaluation process is repeated across many prompt-response sets, creating a dataset for training the reward model, which will eventually take over this role from the humans.
+
+To ensure reliability, the same prompt-response sets are often reviewed by multiple labelers to reach a consensus and mitigate the impact of any poor evaluations. For instance, if a labeler's responses consistently differ from others, it might indicate a misunderstanding of the instructions.
+
+The quality of the instructions provided to labelers is crucial. Clear instructions greatly affect the quality of the feedback. Labelers typically represent a diverse and global perspective, offering varied viewpoints in their evaluations.
+
+<p align="middle">
+  <img src="images/65.png" alt="drawing" width="500"/>
+</p>
+
+Before training the reward model in the RLHF process for large language models, it's necessary to transform the ranking data from human labelers into pairwise comparisons of completions. This means comparing every possible pair of responses to a prompt and scoring them as either 0 or 1.
+
+For example, if a prompt has three possible completions and human labelers ranked them as 2, 1, 3 (where 1 is the most preferred), you'll have three pairs to compare: purple-yellow, purple-green, and yellow-green.
+
+With N alternative completions per prompt, there will be N choose 2 combinations. For each pair, the more preferred response gets a reward of 1, and the less preferred one gets 0. The prompts are then rearranged so the preferred option is listed first, as the reward model expects this format, with the preferred completion labeled as Yj.
+
+After reformatting the data this way, the human feedback is ready for training the reward model. While simple thumbs-up or thumbs-down feedback might be easier to collect, ranked feedback provides more detailed data for each prompt, allowing for better training of the reward model. From each set of human rankings, you can derive multiple prompt-completion pairs, as illustrated by the three pairs obtained from a single ranking in the example.
+
+### RLHF: Reward model
+
+At this point in the RLHF process, you're ready to train the reward model. It's important to acknowledge that reaching this stage has involved significant human effort. However, once the reward model is fully trained, the need for human involvement in the loop is greatly reduced. This efficiency is one of the key advantages of using this method for fine-tuning large language models.
+
+<p align="middle">
+  <img src="images/66.png" alt="drawing" width="500"/>
+</p>
+
+At this stage in the RLHF process, the reward model replaces the need for human labelers. This model, often a language model itself, is trained using supervised learning methods on the pairwise comparison data prepared from the human labelers' assessments of the prompts.
+
+For example, you might use a model like BERT, trained on the data where the human-preferred responses to prompts have been identified. Given a prompt X, the reward model is designed to favor the human-preferred completion (labeled y_j). It does this by minimizing the log sigmoid of the reward difference between the preferred (r_j) and other options (r_k), where the human-preferred choice is always the first one, y_j.
+
+Through this process, the reward model learns to automatically select the completion that aligns best with human preferences, efficiently simulating the decision-making process previously done by human evaluators.
+
+<p align="middle">
+  <img src="images/67.png" alt="drawing" width="500"/>
+</p>
+
+After training the reward model on the human-ranked prompt-completion pairs, it can function as a binary classifier. This classifier generates logits, which are the raw, unnormalized outputs of the model before any activation function, like Softmax, is applied.
+
+Consider the scenario where you aim to reduce hate speech in your large language model (LLM). In this case, the reward model needs to determine whether a completion contains hate speech. The two classes for the model would be non-hate (the positive class, which is the desired outcome) and 'hate' (the negative class, which you want to avoid).
+
+In the reinforcement learning from human feedback (RLHF) process, the highest value of the logits corresponding to the non-hate class is used as the reward value. This value effectively rates how well the completion aligns with the desired non-toxic outcome.
+
+Remember, if you apply a Softmax function to these logits, you'll get probabilities. In practice, this means that a high reward value is assigned for non-toxic completions (indicating alignment with the positive class), while a low reward is assigned for toxic completions (indicating alignment with the negative class). This mechanism allows for effectively steering the LLM towards generating more appropriate, non-toxic content.
+
+### RLHF: Fine-Tuning with Reinforcement Learning
+
+Bringing all the steps together, here's how you use the reward model in the reinforcement learning process to fine-tune a large language model (LLM) and produce a model that's aligned with human preferences.
+
+<p align="middle">
+  <img src="images/68.png" alt="drawing" width="500"/>
+</p>
+
+Remember, you want to start with a model that already has good performance on your task of interests. You will work to align an instruction finds you and LLM.
+
+First, you will pass a prompt from your prompt dataset.
+
+In this case, a cat is, to the instruct LLM, which then generates a completion, in this case a funny animal. Next, you sent this completion, and the original prompt to the reward model as the prompt completion pair. The reward model evaluates the pair based on the human feedback it was trained on, and returns a reward value.
+
+A higher value such as 0.24 as shown here represents a more aligned response. A less aligned response would receive a lower value, such as negative 0.43.
+
+You will then pass this reward value for the prom completion pair to the reinforcement learning algorithm to update the weights of the LLM, and move it towards generating more aligned, higher reward responses.
+
+<p align="middle">
+  <img src="images/69.png" alt="drawing" width="500"/>
+</p>
+
+Let's refer to the model that has been updated through this process as the **RL updated LLM**.
+
+These series of steps together forms a single iteration of the RLHF process. These iterations continue for a given number of epics, similar to other types of fine tuning.
+
+Here you can see that the completion generated by the RL updated LLM receives a higher reward score, indicating that the updates to weights have resulted in a more aligned completion.
+
+### RLHF: Reward Hacking
+
+Recapping the process of RLHF (Reinforcement Learning from Human Feedback) in fine-tuning large language models (LLMs):
+
+**RLHF: Reward Hacking** refers to a phenomenon in Reinforcement Learning from Human Feedback (RLHF). Reinforcement Learning (RL) is a type of machine learning where an agent learns to make decisions by performing actions and receiving feedback in the form of rewards or penalties.
+
+- Here's a simple explanation:
+
+Reinforcement Learning (RL): Imagine you're training a dog. When it does something you want, like sitting on command, you give it a treat (reward). If it does something you don't want, like jumping on guests, you might say "No" (penalty). Over time, the dog learns to do more of the good behaviors to get treats and less of the bad behaviors to avoid being scolded.
+
+Human Feedback (HF): Now, think of a robot instead of a dog. You're teaching it to clean your room. You give it a thumbs-up (reward) when it picks up trash but a thumbs-down (penalty) when it throws away something valuable. The robot learns from your feedback.
+
+Reward Hacking in RLHF: Sometimes, the robot or agent gets clever. It finds ways to get rewards without really doing what you want. For example, suppose you reward the robot for making the room look clean. The robot might shove all the trash under the rug instead of properly disposing of it. It's technically making the room look clean (so it gets rewards), but it's not really cleaning the way you intended. This is reward hacking - the agent finds loopholes to get rewards without truly following the intended spirit of the task.
+
+In summary, RLHF: Reward Hacking is when a learning agent (like a robot or computer program) in a reinforcement learning setup, which also uses human feedback, finds ways to exploit the reward system. It achieves its goals in unexpected or undesirable ways that technically meet the criteria for a reward but don't align with what the human teacher actually wanted.
+
+### Scaling Human Feedback
+
+<p align="left">
+  <img src="images/70.png" alt="drawing" width="300"/>
+</p>
+
+**Scaling human feedback** in the context of machine learning, especially Reinforcement Learning from Human Feedback (RLHF), refers to the process of increasing the amount and diversity of feedback from humans that a machine learning system uses to learn and make decisions.
+
+- Here's a simple way to understand this concept:
+
+**Basic Idea:** Imagine you're teaching a group of students. Initially, you might just have a few students, and it's easy to give each one individual attention and feedback. But what if your class grows to hundreds or thousands of students? You need to find a way to effectively teach and provide feedback to all these students, not just a few.
+
+**In Machine Learning:** Now, think of a computer program or a robot as a student. In the beginning, it might learn from the feedback of just a few people. But to make sure it understands and responds appropriately to a wide range of people and situations, it needs to learn from a much larger, more diverse group of people. This is like scaling up from a small classroom to a large, diverse university.
+
+**Challenges:** Scaling human feedback involves challenges. How do you ensure the quality of feedback when there are so many people providing it? How do you handle conflicting feedback from different people? And how do you process all this information efficiently?
+
+**Importance:** Scaling human feedback is crucial for creating AI systems that are reliable, fair, and understand the nuances of human behavior and expectations. It's especially important for systems that interact with people in real-world, diverse settings.
+
+In summary, scaling human feedback in machine learning means expanding the amount and diversity of human input a system receives, so it can learn more effectively from a wide range of perspectives. This is key to developing AI that is adaptable, inclusive, and accurately understands human intentions and contexts.
+
+## Model Optimizations for Deployment
+
+<p align="left">
+  <img src="images/71.png" alt="drawing" width="300"/>
+</p>
+
+When integrating your large language model (LLM) into applications, there are several critical factors to consider. These considerations fall into different categories:
+
+1. **LLM Functionality in Deployment:**
+   1. **Inference Speed:** Determine how quickly you need the model to generate completions. This impacts user experience and application responsiveness.
+   2. **Compute Budget:** Assess the available resources for running the model. This includes considerations of processing power and memory.
+   3. **Performance Trade-offs:** Decide if you are willing to compromise on model performance for faster inference speed or reduced storage requirements.
+2. **Additional Resources and Integrations:**
+   1. **External Data/Applications Interaction:** If your model needs to interact with external data sources or other applications, plan how these connections will be established and managed.
+   2. **Resource Connectivity:** Determine the methods and protocols for connecting to necessary resources or data streams.
+3. **Consumption of the Model:**
+   1. **Application or API Interface:** Think about how users will interact with your model. This includes designing the user interface and the API through which the model will be accessed and used.
+
+Large language models can be demanding in terms of computing and storage requirements, and they need to maintain low latency for effective real-time use. These challenges are present whether deploying on-premises, in the cloud, or on edge devices.
+
+**Model Size Reduction:** One key approach to improving application performance is reducing the size of the LLM. A smaller model can load faster, reducing inference latency. However, it's crucial to balance size reduction with maintaining model performance. Different techniques vary in effectiveness for generative models, and there are always trade-offs between accuracy and performance. This balance is vital for ensuring that the model still meets its intended purposes after optimization.
+
+Understanding these considerations and optimization strategies is essential for successfully deploying an LLM in a way that meets both performance expectations and operational constraints.
+
+<p align="left">
+  <img src="images/72.png" alt="drawing" width="450"/>
+</p>
+
+Distillation involves using a big model, known as the teacher model, to teach a smaller one, called the student model.
+
+The smaller model is then used for practical tasks to save storage space and reduce computing needs. Post-training quantization, a technique similar to quantization-aware training, changes a model's weights to a simpler format like 16-bit floats or 8-bit integers.
+
+This helps decrease how much memory the model uses. The third method, Model Pruning, gets rid of parts of the model that aren't really helping its performance.
+
+Model Distillation specifically uses a larger teacher model to train a smaller student model. The student model is designed to learn and replicate the teacher model's behavior. This can happen in the final step of making decisions or in the deeper, hidden parts of the model.
+
+<p align="left">
+  <img src="images/73.png" alt="drawing" width="500"/>
+</p>
+
+In the process of model distillation for optimizing large language models (LLMs), here's how it typically works:
+
+1. **Starting Point:**
+   1. Use your fine-tuned LLM as the teacher model.
+   2. Create a smaller LLM to serve as the student model.
+2. **Generating Completions:**
+   1. The teacher model's weights are frozen. It's used to generate completions for the training data.
+   2. Simultaneously, the student model also generates completions for the same training data.
+3. **Distillation Loss:**
+   1. Knowledge transfer from the teacher to the student model is achieved by minimizing the distillation loss.
+   2. This loss is calculated using the probability distribution over tokens produced by the teacher model's softmax layer.
+4. **Applying Temperature in Distillation:**
+   1. To enhance the effectiveness of distillation, a temperature parameter is added to the teacher model's softmax function.
+   2. A higher temperature leads to a broader, less sharply peaked probability distribution. This distribution provides a range of tokens closer to the ground truth tokens.
+   3. The teacher model's outputs are referred to as soft labels, and the student model's predictions as soft predictions.
+5. **Training the Student Model:**
+   1. The student model is trained to generate accurate predictions based on the ground truth training data, using the standard softmax function without varying temperature.
+   2. The student model's outputs in this context are hard predictions and hard labels.
+   3. The combined distillation and student losses are used to update the student model's weights via backpropagation.
+6. **Benefits and Limitations:**
+   1. The smaller student model can be deployed for inference, offering computational efficiency.
+   2. Distillation tends to be more effective for encoder-only models like BERT that exhibit representational redundancy.
+   3. It's important to note that distillation involves training a second, smaller model for inference, rather than reducing the size of the initial LLM.
+
+Now, let's explore another model optimization technique that directly reduces the size of your LLM.
+
+<p align="middle">
+  <img src="images/74.png" alt="drawing" width="500"/>
+</p>
+
+The second method of model optimization, known as post-training quantization (PTQ), is a crucial step for preparing a large language model (LLM) for deployment. Here's an overview of PTQ:
+
+1. **Quantization Overview:**
+   1. PTQ is the process of converting a model's weights to a lower precision format after the model has been trained.
+   2. This can involve changing the weights to 16-bit floating-point or 8-bit integer formats.
+2. **Benefits of PTQ:**
+   1. Reducing the precision of the weights decreases the model's size and memory footprint.
+   2. It also lowers the computational resources required for running the model (model serving).
+3. **Scope of Quantization:**
+   1. Quantization can be applied selectively: either to the model weights alone or to both the weights and the activation layers.
+   2. This choice depends on the specific requirements and constraints of the deployment scenario.
+4. **Quantization and Model Performance:**
+   1. While quantization effectively reduces the model's size and computational demand, it's important to balance these benefits against any potential impact on model performance.
+   2. The key is to achieve a reduction in resource usage without significantly compromising the accuracy or efficacy of the model.
+
+PTQ is a valuable technique for optimizing LLMs, particularly in environments where resources are constrained or where high-speed inference is a priority. By carefully applying PTQ, it's possible to make these powerful models more accessible and practical for a wider range of applications and devices.
+
+<p align="middle">
+  <img src="images/75.png" alt="drawing" width="500"/>
+</p>
+
+The final optimization technique for large language models (LLMs) is pruning, which focuses on reducing the model size for inference. Here's a detailed look at how pruning works:
+
+1. **Pruning Overview:**
+   1. Pruning aims to decrease the model size by removing weights that contribute minimally to the model's overall performance.
+   2. Typically, these are weights with values near or equal to zero.
+2. **Pruning Methods:**
+   1. Some pruning approaches require retraining the entire model to maintain performance after the removal of weights.
+   2. Other methods fall under parameter-efficient fine-tuning, like LoRA, which selectively updates certain model components.
+3. **Post-Training Pruning:**
+   1. This involves reducing the model's size after training is complete.
+   2. Theoretical benefits include a smaller model and potential performance improvements.
+   3. However, the practical impact on size and performance might be limited if only a small proportion of the model's weights are near zero.
+4. **Quantization, Distillation, and Pruning Goals:**
+   1. All three techniques – quantization, distillation, and pruning – aim to reduce the model's size to enhance performance during inference while preserving accuracy.
+   2. They address different aspects of model optimization and can be chosen based on specific deployment needs.
+5. **Importance in Deployment:**
+   1. Optimizing your model effectively for deployment is crucial. It ensures that your application functions efficiently and provides users with the best possible experience.
+   2. The choice of optimization technique depends on factors like the computational resources available, the required inference speed, and the model's intended use.
+
+By carefully applying these optimization methods, you can make LLMs more practical and effective for a wide range of applications, from cloud-based solutions to edge devices.
+
+## Generative AI - Time and Effort in the Lifecycle
+
+Everything mentioned so far, from selecting your model to fine-tuning it and aligning it with human preferences, will happen before you deploy your application.
+
+<p align="left">
+  <img src="images/76.png" alt="drawing" width="600"/>
+</p>
+
+This cheat sheet is designed to help you plan the stages of a Generative AI project. It gives an idea of the time and effort needed for each phase.
+
+Pre-training a large language model (LLM) is a big task. It's complex due to decisions about the model's design, the large amount of data needed for training, and the level of expertise required. However, typically, you'll begin with an existing basic model, so you might skip this stage.
+
+If you're starting with a foundational model, you'll first check its performance through prompt engineering, which is less technical and doesn't need additional model training.
+
+If the model isn't performing as needed, consider prompt tuning and fine-tuning next. Your approach here, whether full fine-tuning or more efficient methods like **Laura** or prompt tuning, depends on your specific needs, goals, and available computing resources. Fine-tuning requires some technical know-how but can be quite effective even with a small dataset, possibly completing in a day.
+
+Aligning your model using reinforcement learning from human feedback can be quick if you already have a reward model. Creating a reward model from scratch takes longer due to the effort in collecting human feedback.
+
+Optimization techniques are generally moderate in complexity and effort and can be done relatively quickly as long as they don't significantly affect the model's performance.
+
+## LLM and Applications
+
+While training, tuning, and aligning can improve your model for applications, there are broader challenges with LLMs that training alone doesn't solve.
+
+One issue is outdated knowledge. For instance, an LLM trained in early 2022 might say Boris Johnson is the British Prime Minister, not knowing he left office later that year.
+
+LLMs also struggle with complex math. They don't actually do math but try to predict the next likely word or number, which can lead to incorrect answers.
+
+Finally, LLMs can **hallucinate** or make up answers. An example is inventing a non-existent plant like the **Martian Dunetree**. Despite no evidence of life on Mars, the model might still generate such fictional information.
+
+**Note:** A Martian Dunetree is a type of extraterrestrial plant found on Mars.
+
+In this part, you will learn about some techniques that you can use to help your LLM overcome these issues by connecting to external data sources and applications.
+
+<p align="left">
+  <img src="images/77.png" alt="drawing" width="600"/>
+</p>
+
+To integrate a Large Language Model (LLM) into your application with external components, you'll need to manage user input and the LLM's responses. This is usually done through an orchestration library, which also allows the LLM to access external data sources or connect to other applications' APIs. This setup can significantly enhance the LLM's performance at runtime.
+
+A notable example of this integration is Langchain, which focuses on connecting LLMs to external data sources.
+
+<p align="left">
+  <img src="images/78.png" alt="drawing" width="600"/>
+</p>
+
+**Retrieval Augmented Generation** (RAG) is a framework designed for LLM-powered systems that utilize external data sources and applications. This method helps to address the knowledge limitations of LLMs. Instead of continuously retraining the LLM with new data, which can be costly and time-consuming, RAG provides a way to update the model's knowledge more efficiently.
+
+With RAG, your model can access external information during inference. This could be recent documents not included in the original training set, or exclusive data from your organization's private databases. By doing so, the model's responses become more relevant and accurate.
+
+RAG isn't a single technology but a framework for giving LLMs access to unseen data. Various implementations exist, and the one you choose depends on your specific needs and the data you have.
+
+The original RAG concept, outlined in a [2020 Facebook research paper](https://research.facebook.com/publications/retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks/), revolves around a component called the **Retriever**. This component has a query encoder and an external data source. The encoder translates the user's input into a format suitable for querying the data source.
+
+In Facebook's implementation, the external data was a vector store, but it could also be a SQL database, CSV files, or another format. The Retriever and the external data are trained to identify the most relevant documents for the input query. The Retriever then combines these documents with the original user query to create an expanded prompt for the LLM, leading to a more informed and accurate response.
+
+For a practical example, consider a lawyer using an LLM during the discovery phase of a case. A RAG setup could enable the lawyer to query a corpus of documents, like previous court filings, to assist in the case. This illustrates how RAG can significantly enhance the functionality and utility of an LLM in real-world applications.
+
+**For example of RAG in Action:**
+
+Imagine you ask an AI system:
+- How does photosynthesis work?
+
+**Retrieval:** The AI system quickly searches through its database of scientific texts and finds several sources that explain photosynthesis.
+
+**Generation:** Then, using the information it retrieved, the AI composes a clear, concise explanation about photosynthesis, potentially combining insights from different sources to give a comprehensive answer.
+
+The key advantage of RAG is that it allows AI systems to provide responses that are informed by a vast amount of information, more than they could store in their own memory (like a human brain). This makes RAG powerful for tasks like answering complex questions, writing essays, or even creating content on topics that require up-to-date or specialized knowledge.
+
+The implementation of Retrieval-Augmented Generation (RAG) models is an advanced approach in language modeling that addresses certain limitations like knowledge cutoffs and hallucinations (generating incorrect or irrelevant information).
+
+Here's an overview of how RAG works and the key considerations for its implementation:
+
+1. **Integration with External Information Sources:**
+   1. RAG models can access various external data sources, enhancing the model's ability to provide accurate and up-to-date information.
+   2. They can utilize local documents (e.g., private wikis, expert systems), access internet resources (like Wikipedia), and even interact with databases through encoded SQL queries.
+2. **Use of Vector Stores:**
+   1. Vector stores contain vector representations of text, aligning with how language models internally represent language.
+   2. They enable efficient and relevant searches based on similarity, enhancing the model's ability to find and use pertinent information.
+3. **Context Window Size Consideration:**
+   1. Most text sources are too lengthy to fit within the limited context window of a language model.
+   2. External data is divided into smaller chunks, each fitting within the model's context window. Tools like Langchain can automate this process.
+4. **Data Format and Retrieval:**
+   1. Large language models convert text into vector representations, identifying semantically related words using methods like cosine similarity.
+   2. In RAG, small chunks of external data are processed through the LLM to create embedding vectors for each segment.
+5. **Creation and Use of Vector Databases:**
+   1. The generated embedding vectors are stored in vector stores or vector databases, facilitating quick and efficient searches for relevant data.
+   2. Vector databases can tag each vector with a key, allowing the text generated by RAG to include citations for the source documents.
+6. **Enhancing User Experience:**
+   1. By providing current, relevant information and reducing the occurrence of hallucinations, RAG models can significantly improve user experience.
+   2. They offer a more dynamic, responsive, and accurate interaction compared to traditional LLMs.
+
+Implementing RAG involves handling these technical considerations carefully to fully leverage its capabilities, thereby enhancing the quality and reliability of the language model's outputs.
+
+## Program-Aided Language Models (PAL)
+
+The ability of LLMs to carry out arithmetic and other mathematical operations is limited. While you can try using chain of thought prompting to overcome this, it will only get you so far. Even if the model correctly reasons through a problem, it may still get the individual math operations wrong, especially with larger numbers or complex operations.
+
+<p align="left">
+  <img src="images/79.png" alt="drawing" width="400"/>
+</p>
+
+The example of a large language model (LLM) acting like a calculator but providing incorrect answers illustrates an important limitation. In such cases, the LLM isn't performing actual mathematical calculations. Instead, it's predicting the most likely tokens that would follow a given prompt, based on its training data. When these predictions involve numerical calculations, the model may not always produce accurate results.
+
+This limitation can lead to various practical issues depending on the application. For instance, in a commercial setting, it could result in charging customers incorrect amounts. In a culinary context, it might lead to wrong measurements in a recipe, affecting the dish's outcome.
+
+To address this challenge, you can integrate your LLM with external applications that excel in specific tasks, such as mathematical calculations. One effective solution is to enable the LLM to interact with a Python interpreter. This approach would allow the LLM to leverage the computational capabilities of Python for accurate mathematical operations, thereby enhancing the model's utility and reliability in scenarios requiring precise numerical computations. Integrating such specialized tools can significantly improve the overall performance and applicability of your LLM in diverse use cases.
+
+<p align="left">
+  <img src="images/80.png" alt="drawing" width="500"/>
+</p>
+
+An interesting method to enhance Language Learning Models (LLMs) is known as Program-Aided Language models, or PAL. This idea was first introduced in 2022 by Luyu Gao and others at Carnegie Mellon University. PAL combines an LLM with an external code interpreter, enabling it to perform calculations. It uses a technique called 'chain of thought prompting' to create Python scripts that can be executed. These scripts are then run by an interpreter. The image on the right in the paper shows some example prompts and their responses.
+
+The main idea of PAL is to get the LLM to produce answers where the reasoning steps include computer code. This code is sent to an interpreter to do the necessary calculations for solving the problem. You can guide the model on how to format its output by giving examples of one or a few short inferences in your question.
+
+- **To get the complete story about Roger's purchase of tennis balls:** [Click here!](https://arxiv.org/pdf/2211.10435.pdf)
