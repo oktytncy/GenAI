@@ -1,5 +1,10 @@
-# Generative AI with Large Language Models
-- [Generative AI with Large Language Models](#generative-ai-with-large-language-models)
+# Generative AI with Large Language Models (LLM)
+
+<p align="middle">
+  <img src="images/0.png" alt="drawing" width="1000"/>
+</p
+
+- [Generative AI with Large Language Models (LLM)](#generative-ai-with-large-language-models-llm)
   - [Back to Basics: Core Concepts Explained](#back-to-basics-core-concepts-explained)
     - [What is Generative AI and LLM](#what-is-generative-ai-and-llm)
     - [LLM Use Cases and Practical Tasks](#llm-use-cases-and-practical-tasks)
