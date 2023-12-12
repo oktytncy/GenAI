@@ -97,7 +97,7 @@ A specific layer then interprets the meanings of these numerical values. The mod
 #### Working Principle
 
 <p align="left">
-  <img src="images/2.png" alt="drawing" width="600"/>
+  <img src="images/2.png" alt="drawing" width="500"/>
 </p>
 
 Machine learning models are essentially complex statistical tools that need to work with numbers instead of words. To prepare text for these models, you have to convert words into numerical values through tokenization.
@@ -171,7 +171,7 @@ One of the powerful strategies that will enable the model to produce better resu
 Providing examples inside the context window is called in-context learning. With in-context learning, you can help LLMs learn more about the task being asked by including examples or additional data in the prompt.
 
 <p align="middle">
-  <img src="images/6.png" alt="drawing" width="600"/>
+  <img src="images/6.png" alt="drawing" width="700"/>
 </p>
 
 In the example given, you're using a language model to figure out if a song review is positive or negative. You do this by telling the model, *Classify this review*, and then you show it the review.
@@ -183,7 +183,7 @@ The biggest and most advanced language models are really good at understanding t
 In this example, the model correctly identifies the sentiment as positive.
 
 <p align="middle">
-  <img src="images/7.png" alt="drawing" width="600"/>
+  <img src="images/7.png" alt="drawing" width="700"/>
 </p>
 
 Smaller models, like GPT-2, may not do as well with zero-shot inference, which means they might not understand or complete tasks correctly without specific training.
@@ -191,7 +191,7 @@ Smaller models, like GPT-2, may not do as well with zero-shot inference, which m
 If you ask a smaller model to classify the sentiment of a review, it might just write something related to the review but not actually say if the sentiment is positive or negative. It struggles to grasp the specific task you're asking it to perform.
 
 <p align="middle">
-  <img src="images/8.png" alt="drawing" width="600"/>
+  <img src="images/8.png" alt="drawing" width="700"/>
 </p>
 
 Giving a model an example can make it do better at a task. You can make the prompt longer and start with an example that shows the model what to do.
@@ -203,7 +203,7 @@ By including an example in the prompt, you're showing the smaller model what you
 Then you repeat the instruction and add the new review you actually want to be analyzed. This longer prompt helps the smaller model understand the task and how to respond. This method, where you give one example to guide the model, is called **one-shot inference**, which is different from zero-shot inference where no examples are provided.
 
 <p align="middle">
-  <img src="images/9.png" alt="drawing" width="600"/>
+  <img src="images/9.png" alt="drawing" width="700"/>
 </p>
 
 If one example isn't enough for the model to understand a task, you can use a **few-shot inference** approach. This means giving the model several examples.
@@ -213,7 +213,7 @@ For instance, if a model didn't do well with one-shot inference for sentiment an
 By showing the model different kinds of reviews and the right sentiment analysis for each, you help it learn what you're asking for. When you then give it the actual review you want analyzed, the model is more likely to understand the task and give you the correct sentiment, positive or negative.
 
 <p align="middle">
-  <img src="images/10.png" alt="drawing" width="600"/>
+  <img src="images/10.png" alt="drawing" width="700"/>
 </p>
 
 Prompt engineering involves designing your prompts to help the model learn from examples. Big models can often understand tasks with zero examples (zero-shot inference), but smaller models might need one example (one-shot inference) or a few (few-shot inference) to perform well.
@@ -226,8 +226,8 @@ The bigger a model is, meaning the more parameters it has, the better it can und
 
 ### Generative configuration
 
-<p align="middle">
-  <img src="images/11.png" alt="drawing" width="400"/>
+<p align="left">
+  <img src="images/11.png" alt="drawing" width="350"/>
 </p>
 
 Lets examine some of the methods and associated configuration parameters that you can use to influence the way that the model makes the final decision about next-word generation.
@@ -240,8 +240,8 @@ Note that these are different from the training parameters learned during the tr
 
 The output from the transformer's softmax layer is a probability distribution across the entire dictionary of words that the model uses.
 
-<p align="middle">
-  <img src="images/12.png" alt="drawing" width="600"/>
+<p align="left">
+  <img src="images/12.png" alt="drawing" width="700"/>
 </p>
 
 Here you can see a selection of words and their probability score next to them. Although we are only showing four words here, imagine that this is a list that carries on to the complete dictionary. Most large language models by default will operate with so-called **Greedy decoding**.
@@ -255,7 +255,7 @@ In some systems, like Hugging Face's transformers, you must turn off greedy deco
 **Top-k** and **top-p** sampling techniques to help limit random sampling and increase the chances of the output being meaningful. Two Settings, top-k, and top-p, are sampling techniques we can use to help limit random sampling and increase the chances of the output being meaningful.
 
 <p align="middle">
-  <img src="images/13.png" alt="drawing" width="600"/>
+  <img src="images/13.png" alt="drawing" width="700"/>
 </p>
 
 **The temperature** value is a scaling factor applied to the final softmax layer of the model, that impacts the shape of the probability distribution of the next token. Unlike top-k and top-p parameters, changing the temperature actually changes the predictions the model will make.
@@ -269,7 +269,7 @@ If the temperature is set to one, it means no adjustment is made, and the origin
 ### GenAI Projects Lifecycle
 
 <p align="middle">
-  <img src="images/14.png" alt="drawing" width="600"/>
+  <img src="images/14.png" alt="drawing" width="700"/>
 </p>
 
 The diagram above belongs to the overall life cycle that we will go into step by step.
@@ -321,7 +321,7 @@ Encoder-only models, also known as autoencoding models, are trained with a maske
 These autoencoding models are particularly useful for tasks that require an understanding of context from both directions, such as sentence-level tasks like sentiment analysis, or token-level tasks such as named entity recognition and word classification. BERT and RoBERTa are prominent examples of encoder-only models.
 
 <p align="middle">
-  <img src="images/16.png" alt="drawing" width="600"/>
+  <img src="images/16.png" alt="drawing" width="1000"/>
 </p>
 
 Decoder-only models, or autoregressive models, are pre-trained through causal language modeling. Their training goal is to predict the next token in a sequence based on the preceding tokens. This process is referred to as full language modeling by some researchers.
@@ -335,7 +335,7 @@ The sequence-to-sequence models, a third variation, utilize both encoder and dec
 The decoder of a sequence-to-sequence model then attempts to reconstruct the masked token sequences autoregressively, with the output starting with a sentinel token followed by the predicted tokens. These models are versatile and used in tasks like translation, summarization, and question-answering, where both input and output are textual. BART is another well-known sequence-to-sequence model alongside T5.
 
 <p align="middle">
-  <img src="images/17.png" alt="drawing" width="600"/>
+  <img src="images/17.png" alt="drawing" width="800"/>
 </p>
 
 To recap the comparison between model architectures based on their pre-training objectives:
@@ -347,7 +347,7 @@ To recap the comparison between model architectures based on their pre-training 
 - **Encoder Decoder (Sequence-to-sequence models):** Sequence-to-sequence models combine both encoder and decoder parts of the transformer architecture. Their pre-training objectives can vary, with an example being the T5 model, which uses span corruption. These models are well-suited for tasks that involve converting one body of text into another, such as translation, summarization, and question-answering.
 
 <p align="middle">
-  <img src="images/18.png" alt="drawing" width="600"/>
+  <img src="images/18.png" alt="drawing" width="800"/>
 </p>
 
 Larger models in AI are typically more capable of carrying out their tasks well. Researchers have found that the larger a model, the more likely it is to work as you needed to without additional in-context learning or further training.
@@ -388,7 +388,7 @@ Remember basics of computer science, 1 byte has 8 bits, and to store 32 bits you
 Let's say you have a model with 1 Billion parameters and each parameter stores a floating point number. That's a lot of memory.
 
 <p align="middle">
-  <img src="images/19.png" alt="drawing" width="600"/>
+  <img src="images/19.png" alt="drawing" width="800"/>
 </p>
 
 The models are defined by their parameters and weights. After training, each parameter stores a floating point number as its weight value. 1 Billion parameter model where each parameter is FP32 (32 bits) will be 4GB in size, in FP16 or BFLOAT16 will be 2 GB in size, and in INT8 will be 1 GB in size.
@@ -400,7 +400,7 @@ Quantization should be considered based on its impact on model accuracy. There a
 2. **Quantization Aware Training (QAT):** Design the model for quantization from the start and retrain it to correct for errors caused by the reduced precision. This approach aims to maintain accuracy while benefiting from reduced memory usage.
 
 <p align="middle">
-  <img src="images/21.png" alt="drawing" width="600"/>
+  <img src="images/21.png" alt="drawing" width="700"/>
 </p>
 
 The goal of quantization is to reduce the memory required to store and train models by reducing the precision of the model weights.
@@ -442,11 +442,11 @@ To quantify the resources needed for training models, we use the unit "petaFLOP 
 
 If you have a more powerful processor that can carry out more operations at once, then a petaFLOP per second day requires fewer chips. For example, four NVIDIA A100 GPUs give equivalent compute to the eleven V100 chips.
 
-<p align="middle">
+<p align="left">
   <img src="images/22.png" alt="drawing" width="600"/>
 </p>
 
-<p align="middle">
+<p align="left">
   <img src="images/23.png" alt="drawing" width="600"/>
 </p>
 
@@ -469,7 +469,7 @@ The Chinchilla paper suggests that some 100 billion parameter models, such as GP
 They also indicate these models are under-trained and could improve with exposure to more data. The researchers propose that smaller models might reach the same level of performance as their larger counterparts by training on more extensive datasets. This hypothesis challenges the trend of increasing model size and emphasizes the potential of data scale for model effectiveness.
 
 <p align="middle">
-  <img src="images/24.png" alt="drawing" width="600"/>
+  <img src="images/24.png" alt="drawing" width="1000"/>
 </p>
 
 The Chinchilla paper recommends the optimal training dataset size, which should be approximately 20 times the number of parameters of a model. For a model with 70 billion parameters, the ideal dataset would consist of 1.4 trillion tokens. This ratio is key in achieving what's considered a compute optimal model—one that maximizes performance within a given compute budget.
@@ -507,7 +507,7 @@ There's a special method called instruction fine-tuning. This is really effectiv
 Lets take a closer look at how this works.
 
 <p align="middle">
-  <img src="images/25.png" alt="drawing" width="600"/>
+  <img src="images/25.png" alt="drawing" width="1000"/>
 </p>
 
 Instruction fine-tuning trains the model to respond to certain instructions. Here's how it works: you give the model examples that show what kind of answer you want.
@@ -527,7 +527,7 @@ Fortunately, developers have created prompt template libraries. These libraries 
 These libraries have templates for different tasks and datasets.
 
 <p align="middle">
-  <img src="images/26.png" alt="drawing" width="600"/>
+  <img src="images/26.png" alt="drawing" width="1000"/>
 </p>
 
 During fine-tuning, you take prompts from your training dataset and feed them to the language model. The model then comes up with responses. You compare these responses with the correct answers in the training data. For example, if the model wrongly labels a clearly positive review as neutral, you know it needs improvement.
@@ -539,7 +539,7 @@ You then use this loss to adjust the model's inner settings (or 'weights') throu
 Just like in regular supervised learning, you can check how well your language model is doing by using a separate set of data that it hasn't seen before, called holdout validation data. This helps you find out the validation accuracy. After you finish fine-tuning the model, you do another check with a different set of new data, known as the holdout test dataset, to get the test accuracy.
 
 <p align="middle">
-  <img src="images/27.png" alt="drawing" width="600"/>
+  <img src="images/27.png" alt="drawing" width="1000"/>
 </p>
 
 The end result of fine-tuning is a new version of the original model, often called an 'instruct model'. This new model is better at the tasks you focused on. Nowadays, fine-tuning language models with instruction prompts is very popular.
@@ -553,7 +553,7 @@ Language models are known for handling many different tasks with just one model.
 However, there's a downside to focusing on just one task. It can lead to something called **catastrophic forgetting**. This happens because fine-tuning changes the model's original settings, making it really good at the new task but possibly worse at others. So, while the model might get better at, say, analyzing the sentiment of a review, it might 'forget' how to do other tasks it used to know.
 
 <p align="middle">
-  <img src="images/28.png" alt="drawing" width="600"/>
+  <img src="images/28.png" alt="drawing" width="1000"/>
 </p>
 
 This model used to identify names of things correctly, like recognizing 'Taci' as the name of a dog in a sentence. But after fine-tuning for a different task, it started making mistakes in this area, showing skills related to the new task instead.
@@ -567,7 +567,7 @@ To avoid this problem, called catastrophic forgetting, you have a couple of opti
 3. Another option is to use a method called **Parameter Efficient Fine-Tuning (PEFT)**. PEFT is a set of techniques that preserves the weights of the original LLM and trains only a small number of task-specific adapter layers and parameters. PEFT shows greater robustness to catastrophic forgetting since most of the pre-trained weights are left unchanged.
 
 <p align="middle">
-  <img src="images/29.png" alt="drawing" width="600"/>
+  <img src="images/29.png" alt="drawing" width="1000"/>
 </p>
 
 In this case, the dataset has examples for different tasks like summarizing, rating reviews, translating code, and recognizing entities. By training the model with this mixed dataset, it gets better at all these tasks at the same time. This helps avoid catastrophic forgetting.
@@ -583,7 +583,7 @@ FLAN stands for 'Fine-tuned Language Net.' It's a method used for the final stag
 For example, FLAN-T5 is the FLAN version of the T5 foundational model. Similarly, FLAN-PaLM is the FLAN version of the PaLM foundational model. So, the idea is that FLAN is applied to existing models to enhance their capabilities.
 
 <p align="middle">
-  <img src="images/30.png" alt="drawing" width="600"/>
+  <img src="images/30.png" alt="drawing" width="1000"/>
 </p>
 
 FLAN-T5 is a versatile and powerful model, designed to handle a wide range of tasks. It has been fine-tuned using 473 datasets that cover 146 different types of tasks. These datasets were selected from various models and research papers.
@@ -591,7 +591,7 @@ FLAN-T5 is a versatile and powerful model, designed to handle a wide range of ta
 An example of a specific dataset used in FLAN-T5 for training summarization tasks is called SAMSum. This is part of a larger collection named 'muffin.' SAMSum focuses on teaching language models to summarize dialogues, and it consists of 16,000 conversations that resemble messenger chats, each accompanied by a summary.
 
 <p align="middle">
-  <img src="images/31.png" alt="drawing" width="600"/>
+  <img src="images/31.png" alt="drawing" width="1000"/>
 </p>
 
 Here we see four examples where each dialogue is on the left and its summary is on the right. These dialogues and summaries were specially made by linguists to create a high-quality training dataset for language models.
@@ -599,7 +599,7 @@ Here we see four examples where each dialogue is on the left and its summary is 
 The linguists were instructed to create conversations similar to what they would normally write in their daily lives. These conversations reflect the variety of topics they talk about in real-life messenger chats. After creating the dialogues, language experts then wrote short summaries of these conversations. These summaries include the key information and names of the people involved in the dialogue.
 
 <p align="middle">
-  <img src="images/32.png" alt="drawing" width="600"/>
+  <img src="images/32.png" alt="drawing" width="1000"/>
 </p>
 
 Here's an example of how a prompt template is used with the SAMSum dialogue summary dataset. The template includes various instructions, but they all have the same goal: to summarize a dialogue.
@@ -618,8 +618,8 @@ The SAMSum dataset provides FLAN-T5 with the ability to summarize casual convers
 
 To make FLAN-T5 more suited for your specific needs, you can further fine-tune the model. You'd use a dataset that closely matches the conversations your bot handles. This additional fine-tuning helps the model become more adept at summarizing the types of dialogues your customer service team encounters.
 
-<p align="middle">
-  <img src="images/33.png" alt="drawing" width="600"/>
+<p align="left">
+  <img src="images/33.png" alt="drawing" width="1000"/>
 </p>
 
 Let's take a look at example from the DialogSum and see how further fine-tuning can improve the model.
@@ -628,8 +628,8 @@ The example we're looking at is a typical support chat from the DialogSum datase
 
 Now, let's see how FLAN-T5 handles this prompt before any additional fine-tuning is done. This will give us an insight into its current abilities and how further training might improve its performance in understanding and summarizing this type of customer service interaction.
 
-<p align="middle">
-  <img src="images/34.png" alt="drawing" width="600"/>
+<p align="left">
+  <img src="images/34.png" alt="drawing" width="1000"/>
 </p>
 
 Observe how the prompt is now condensed on the left, allowing us to focus more on the model's response.
@@ -638,8 +638,8 @@ Looking at FLAN-T5's reply to the summarization instruction, we notice that it c
 
 Moreover, the model's summary includes some inaccuracies. It introduces details that weren't in the original conversation, such as the name of the hotel and the city it's located in. This highlights areas where the model needs improvement to match the accuracy and relevance of human-generated summaries.
 
-<p align="middle">
-  <img src="images/35.png" alt="drawing" width="600"/>
+<p align="left">
+  <img src="images/35.png" alt="drawing" width="1000"/>
 </p>
 
 Now, let's see how the model performs after being fine-tuned with the DialogSum dataset. Ideally, the model's output should now be closer to the human-produced summary. It should not contain any fabricated details and should include all the crucial information, such as the names of both participants in the conversation.
@@ -683,7 +683,7 @@ There is only one-word difference between these two sentences. However, its mean
 We can now see the similarities and differences for people like us with soft organic brains. But when you train a model with millions of sentences, you need an automated, structured way to measure.
 
 <p align="left">
-  <img src="images/37.png" alt="drawing" width="600"/>
+  <img src="images/37.png" alt="drawing" width="1000"/>
 </p>
 
 ROUGE and BLEU are important metrics for different tasks:
@@ -695,7 +695,7 @@ ROUGE and BLEU are important metrics for different tasks:
 It's interesting to note that **BLEU** is French for blue. Some people might say blue when they talk about it, but its original pronunciation is BLEU.
 
 <p align="left">
-  <img src="images/38.png" alt="drawing" width="400"/>
+  <img src="images/38.png" alt="drawing" width="600"/>
 </p>
 
 Let's review some terminology.
@@ -717,7 +717,7 @@ We can evaluate these using metrics common in machine learning, like recall, pre
 Recall, in this context, is calculated by comparing the number of matching words (or unigrams) in both the reference and the generated sentence. This total is then divided by the number of words in the original, human-made sentence.
 
 <p align="left">
-  <img src="images/39.png" alt="drawing" width="600"/>
+  <img src="images/39.png" alt="drawing" width="1000"/>
 </p>
 
 In our example, the recall score is a perfect one, because all the words in the generated sentence are also in the reference sentence. Precision is calculated by dividing the number of matching unigrams by the total number of words in the generated sentence.
@@ -729,7 +729,7 @@ They don't take into account the order of the words, which can sometimes be misl
 Consider if the generated sentence had one different word, *not*, making it *It is not cold outside*. The scores would remain unchanged, highlighting a limitation of this method.
 
 <p align="left">
-  <img src="images/40.png" alt="drawing" width="600"/>
+  <img src="images/40.png" alt="drawing" width="1000"/>
 </p>
 
 To get a more accurate score, you can consider bigrams, which are pairs of consecutive words from the reference and generated sentences. This approach, known as ROUGE-2, acknowledges the order of words to some extent. You calculate recall, precision, and F1 scores based on how many bigrams match, instead of just individual words.
@@ -739,7 +739,7 @@ You'll often find that ROUGE-2 scores are lower than ROUGE-1 scores. This is bec
 Instead of progressing to larger n-grams like trigrams (three-word sequences) or four-word sequences, we can take a different approach. This involves looking for the longest common subsequence shared between the generated and reference outputs. In our example, the longest matching subsequences are *it is* and *cold outside*, each with a length of two.
 
 <p align="left">
-  <img src="images/41.png" alt="drawing" width="600"/>
+  <img src="images/41.png" alt="drawing" width="1000"/>
 </p>
 
 Now, you can use the length of the **Longest Common Subsequence (LCS)** to calculate recall, precision, and F1 scores. In these calculations, the numerator for both recall and precision is the length of the LCS, which in our example is two. These three metrics together are known as the ROUGE-L score.
@@ -749,7 +749,7 @@ It's important to remember that ROUGE scores need to be understood in context. T
 A notable issue with simple ROUGE scores is that they can sometimes give a high rating to a poorly generated sentence. This happens because these scores may not fully capture the quality or coherence of the generated text.
 
 <p align="left">
-  <img src="images/42.png" alt="drawing" width="600"/>
+  <img src="images/42.png" alt="drawing" width="1000"/>
 </p>
 
 Consider the generated output *cold, cold, cold, cold*. This output, despite being repetitive, will score quite high on the ROUGE-1 metric because it contains a word from the reference sentence. Its ROUGE-1 precision score would be perfect since the word *cold* matches, even though it's repeated several times.
@@ -897,7 +897,7 @@ Inside both the encoder and decoder, there are two main types of neural networks
 When you do full fine-tuning, every single parameter in these layers is updated.
 
 <p align="left">
-  <img src="images/51.png" alt="drawing" width="600"/>
+  <img src="images/51.png" alt="drawing" width="1000"/>
 </p>
 
 LoRA, short for Low-rank Adaptation, is a method that reduces how many parameters need training in fine-tuning. It works by keeping all the original model parameters unchanged and adding two small matrices alongside the original weights. These small matrices are designed so that when multiplied, they match the size of the weights they're modifying.
@@ -926,7 +926,7 @@ Matrix A will be 8 by 64, which has 512 parameters. Matrix B will be 512 by 8, t
 This significant reduction in trainable parameters with LoRA means you can often do this efficient fine-tuning on just a single GPU, avoiding the need for a large distributed cluster of GPUs.
 
 <p align="left">
-  <img src="images/52.png" alt="drawing" width="600"/>
+  <img src="images/52.png" alt="drawing" width="1000"/>
 </p>
 
 Because the rank-decomposition matrices in LoRA are small, you can fine-tune a separate set for each task and easily switch them during inference by updating the model's weights.
@@ -938,7 +938,7 @@ Storing these LoRA matrices takes up very little space. So, in theory, you can t
 To see how effective these models are, let's use the ROUGE metric we discussed earlier. We'll compare the performance of a LoRA fine-tuned model with both the original base model and a fully fine-tuned version.
 
 <p align="left">
-  <img src="images/53.png" alt="drawing" width="600"/>
+  <img src="images/53.png" alt="drawing" width="1000"/>
 </p>
 
 We'll focus on fine-tuning the FLAN-T5-base model for dialogue summarization, which we looked at earlier. Remember, this model was initially fine-tuned using a large instruction dataset.
@@ -954,7 +954,7 @@ The key advantage of LoRA is that it trains far fewer parameters than full fine-
 Choosing the rank for the LoRA matrices is an important decision and still an area of ongoing research. Generally, a lower rank means fewer parameters to train and more savings in computing resources. But, you also have to consider how it might affect the model's performance.
 
 <p align="left">
-  <img src="images/54.png" alt="drawing" width="500"/>
+  <img src="images/54.png" alt="drawing" width="1000"/>
 </p>
 
 In the paper where LoRA was first introduced, Microsoft researchers explored how different choices of rank impacted the model performance on language generation tasks.
@@ -974,7 +974,7 @@ LoRA is a powerful fine-tuning method that achieves great performance. The princ
 It's worth noting that prompt tuning might seem similar to prompt engineering, but they are actually quite distinct from each other.
 
 <p align="left">
-  <img src="images/8.png" alt="drawing" width="600"/>
+  <img src="images/8.png" alt="drawing" width="1000"/>
 </p>
 
 Prompt engineering involves tweaking the language of your prompt to get the desired response from the model. This could be as simple as changing words or phrases, or more complex, like adding examples for one-shot or few-shot inference.
@@ -987,8 +987,8 @@ In prompt tuning, you add extra trainable tokens to your prompt, allowing the su
 
 They are added to the start of the embedding vectors that represent your input text. The soft prompt vectors are the same size as the embedding vectors of the language tokens. Generally, including about 20 to 100 of these virtual tokens is enough to achieve good results.
 
-<p align="middle">
-  <img src="images/55.png" alt="drawing" width="500"/>
+<p align="left">
+  <img src="images/55.png" alt="drawing" width="400"/>
 </p>
 
 Tokens representing natural language are hard because each one corresponds to a specific spot in the embedding vector space. However, soft prompts are different. They are not fixed, discrete words from natural language.
@@ -1003,8 +1003,8 @@ Instead, what changes are the embedding vectors of the soft prompt. Over time, t
 
 Prompt tuning is a very parameter efficient strategy because only a few parameters are being trained. In contrast with the millions to billions of parameters in full fine tuning, similar to what you saw with LoRA.
 
-<p align="middle">
-  <img src="images/56.png" alt="drawing" width="500"/>
+<p align="left">
+  <img src="images/56.png" alt="drawing" width="800"/>
 </p>
 
 You can train a unique set of soft prompts for each specific task and then switch them easily when it's time to use the model, known as inference. For instance, you can train one set of soft prompts for Task A and another set for Task B.
@@ -1026,7 +1026,7 @@ The results show that prompt tuning doesn't do as well as full fine-tuning with 
 A concern with prompt tuning is how to understand the learned virtual tokens, as they don't correspond to any specific words or phrases in the LLM's vocabulary. They can represent any value in the continuous embedding space. However, an analysis of the nearest tokens to the soft prompt locations revealed that they form closely related semantic clusters. This means that the closest words to the soft prompt tokens are similar in meaning, often related to the task at hand. This suggests that the virtual tokens in prompt tuning are learning representations similar to actual words.
 
 <p align="left">
-  <img src="images/58.png" alt="drawing" width="600"/>
+  <img src="images/58.png" alt="drawing" width="1000"/>
 </p>
 
 **Conclusion:**
@@ -1055,7 +1055,7 @@ Think about the task of text summarization, where the goal is to use a model to 
 In 2020, OpenAI researchers published a study on training a model to write short summaries of text articles using [fine-tuning with human feedback](https://proceedings.neurips.cc/paper/2020/file/1f89885d556929e98d3ef9b86448f951-Paper.pdf). The results showed that a model fine-tuned with human feedback performed better than a pre-trained model, a model fine-tuned with instructions, and even surpassed the quality of summaries created by humans.
 
 <p align="left">
-  <img src="images/60.png" alt="drawing" width="600"/>
+  <img src="images/60.png" alt="drawing" width="800"/>
 </p>
 
 RLHF, short for Reinforcement Learning from Human Feedback, is a popular technique to fine-tune large language models (LLMs) using human feedback. This method uses reinforcement learning (RL) to train the LLM in a way that aligns more closely with human preferences.
@@ -1064,7 +1064,7 @@ RLHF is used to ensure that the model's outputs are not only useful and relevant
 
 One exciting possibility with RLHF is the personalization of LLMs. This means models could learn each user's individual preferences through ongoing feedback, leading to innovative technologies like tailored learning plans or personalized AI assistants. To understand how RLHF could enable such future applications, it's important to first understand how RLHF works.
 
-<p align="middle">
+<p align="left">
   <img src="images/61.png" alt="drawing" width="400"/>
 </p>
 
@@ -1074,7 +1074,7 @@ In this process, the agent learns from its experiences. It takes actions, observ
 
 To understand this better, consider the example of training a model to play Tic-Tac-Toe.
 
-<p align="middle">
+<p align="left">
   <img src="images/62.png" alt="drawing" width="400"/>
 </p>
 
@@ -1084,7 +1084,7 @@ The agent learns by taking actions and receiving rewards based on how well those
 
 The series of actions and corresponding states form a playout, often called a rollout. As the agent accumulates experience, it gradually uncovers actions that yield the highest long-term rewards, ultimately leading to success in the game.
 
-<p align="middle">
+<p align="left">
   <img src="images/63.png" alt="drawing" width="500"/>
 </p>
 
@@ -1111,7 +1111,7 @@ To start fine-tuning a large language model (LLM) with RLHF (Reinforcement Learn
 **Consider this example:**
 
 <p align="middle">
-  <img src="images/64.png" alt="drawing" width="600"/>
+  <img src="images/64.png" alt="drawing" width="1000"/>
 </p>
 
 The prompt given is *my house is too hot*. This is passed to the LLM, which generates three different responses. The task for the labelers is to rank these responses based on their helpfulness, from most to least helpful. In this scenario, the labeler might find the second completion the most helpful, as it provides a practical solution to cool the house, and rank it first. The other two completions might be less helpful, with the third one possibly ranked as the least helpful if it disagrees with the user's input. The labeler then ranks these accordingly.
@@ -1123,7 +1123,7 @@ To ensure reliability, the same prompt-response sets are often reviewed by multi
 The quality of the instructions provided to labelers is crucial. Clear instructions greatly affect the quality of the feedback. Labelers typically represent a diverse and global perspective, offering varied viewpoints in their evaluations.
 
 <p align="middle">
-  <img src="images/65.png" alt="drawing" width="600"/>
+  <img src="images/65.png" alt="drawing" width="1000"/>
 </p>
 
 Before training the reward model in the RLHF process for large language models, it's necessary to transform the ranking data from human labelers into pairwise comparisons of completions. This means comparing every possible pair of responses to a prompt and scoring them as either 0 or 1.
@@ -1139,7 +1139,7 @@ After reformatting the data this way, the human feedback is ready for training t
 At this point in the RLHF process, you're ready to train the reward model. It's important to acknowledge that reaching this stage has involved significant human effort. However, once the reward model is fully trained, the need for human involvement in the loop is greatly reduced. This efficiency is one of the key advantages of using this method for fine-tuning large language models.
 
 <p align="middle">
-  <img src="images/66.png" alt="drawing" width="600"/>
+  <img src="images/66.png" alt="drawing" width="1000"/>
 </p>
 
 At this stage in the RLHF process, the reward model replaces the need for human labelers. This model, often a language model itself, is trained using supervised learning methods on the pairwise comparison data prepared from the human labelers' assessments of the prompts.
@@ -1149,7 +1149,7 @@ For example, you might use a model like BERT, trained on the data where the huma
 Through this process, the reward model learns to automatically select the completion that aligns best with human preferences, efficiently simulating the decision-making process previously done by human evaluators.
 
 <p align="middle">
-  <img src="images/67.png" alt="drawing" width="600"/>
+  <img src="images/67.png" alt="drawing" width="1000"/>
 </p>
 
 After training the reward model on the human-ranked prompt-completion pairs, it can function as a binary classifier. This classifier generates logits, which are the raw, unnormalized outputs of the model before any activation function, like Softmax, is applied.
@@ -1164,8 +1164,8 @@ Remember, if you apply a Softmax function to these logits, you'll get probabilit
 
 Bringing all the steps together, here's how you use the reward model in the reinforcement learning process to fine-tune a large language model (LLM) and produce a model that's aligned with human preferences.
 
-<p align="middle">
-  <img src="images/68.png" alt="drawing" width="600"/>
+<p align="left">
+  <img src="images/68.png" alt="drawing" width="1000"/>
 </p>
 
 Remember, you want to start with a model that already has good performance on your task of interests. You will work to align an instruction finds you and LLM.
@@ -1178,7 +1178,7 @@ A higher value such as 0.24 as shown here represents a more aligned response. A 
 
 You will then pass this reward value for the prom completion pair to the reinforcement learning algorithm to update the weights of the LLM, and move it towards generating more aligned, higher reward responses.
 
-<p align="middle">
+<p align="left">
   <img src="images/69.png" alt="drawing" width="600"/>
 </p>
 
@@ -1261,7 +1261,7 @@ This helps decrease how much memory the model uses. The third method, Model Prun
 Model Distillation specifically uses a larger teacher model to train a smaller student model. The student model is designed to learn and replicate the teacher model's behavior. This can happen in the final step of making decisions or in the deeper, hidden parts of the model.
 
 <p align="left">
-  <img src="images/73.png" alt="drawing" width="600"/>
+  <img src="images/73.png" alt="drawing" width="1000"/>
 </p>
 
 In the process of model distillation for optimizing large language models (LLMs), here's how it typically works:
@@ -1290,8 +1290,8 @@ In the process of model distillation for optimizing large language models (LLMs)
 
 Now, let's explore another model optimization technique that directly reduces the size of your LLM.
 
-<p align="middle">
-  <img src="images/74.png" alt="drawing" width="600"/>
+<p align="left">
+  <img src="images/74.png" alt="drawing" width="800"/>
 </p>
 
 The second method of model optimization, known as post-training quantization (PTQ), is a crucial step for preparing a large language model (LLM) for deployment. Here's an overview of PTQ:
@@ -1311,8 +1311,8 @@ The second method of model optimization, known as post-training quantization (PT
 
 PTQ is a valuable technique for optimizing LLMs, particularly in environments where resources are constrained or where high-speed inference is a priority. By carefully applying PTQ, it's possible to make these powerful models more accessible and practical for a wider range of applications and devices.
 
-<p align="middle">
-  <img src="images/75.png" alt="drawing" width="600"/>
+<p align="left">
+  <img src="images/75.png" alt="drawing" width="1000"/>
 </p>
 
 The final optimization technique for large language models (LLMs) is pruning, which focuses on reducing the model size for inference. Here's a detailed look at how pruning works:
@@ -1340,8 +1340,8 @@ By carefully applying these optimization methods, you can make LLMs more practic
 
 Everything mentioned so far, from selecting your model to fine-tuning it and aligning it with human preferences, will happen before you deploy your application.
 
-<p align="left">
-  <img src="images/76.png" alt="drawing" width="600"/>
+<p align="middle">
+  <img src="images/76.png" alt="drawing" width="1000"/>
 </p>
 
 This cheat sheet is designed to help you plan the stages of a Generative AI project. It gives an idea of the time and effort needed for each phase.
@@ -1371,7 +1371,7 @@ Finally, LLMs can **hallucinate** or make up answers. An example is inventing a 
 In this part, you will learn about some techniques that you can use to help your LLM overcome these issues by connecting to external data sources and applications.
 
 <p align="left">
-  <img src="images/77.png" alt="drawing" width="600"/>
+  <img src="images/77.png" alt="drawing" width="1000"/>
 </p>
 
 To integrate a Large Language Model (LLM) into your application with external components, you'll need to manage user input and the LLM's responses. This is usually done through an orchestration library, which also allows the LLM to access external data sources or connect to other applications' APIs. This setup can significantly enhance the LLM's performance at runtime.
@@ -1379,7 +1379,7 @@ To integrate a Large Language Model (LLM) into your application with external co
 A notable example of this integration is Langchain, which focuses on connecting LLMs to external data sources.
 
 <p align="left">
-  <img src="images/78.png" alt="drawing" width="600"/>
+  <img src="images/78.png" alt="drawing" width="1000"/>
 </p>
 
 **Retrieval Augmented Generation** (RAG) is a framework designed for LLM-powered systems that utilize external data sources and applications. This method helps to address the knowledge limitations of LLMs. Instead of continuously retraining the LLM with new data, which can be costly and time-consuming, RAG provides a way to update the model's knowledge more efficiently.
@@ -1445,7 +1445,7 @@ This limitation can lead to various practical issues depending on the applicatio
 To address this challenge, you can integrate your LLM with external applications that excel in specific tasks, such as mathematical calculations. One effective solution is to enable the LLM to interact with a Python interpreter. This approach would allow the LLM to leverage the computational capabilities of Python for accurate mathematical operations, thereby enhancing the model's utility and reliability in scenarios requiring precise numerical computations. Integrating such specialized tools can significantly improve the overall performance and applicability of your LLM in diverse use cases.
 
 <p align="left">
-  <img src="images/80.png" alt="drawing" width="600"/>
+  <img src="images/80.png" alt="drawing" width="1000"/>
 </p>
 
 An interesting method to enhance Language Learning Models (LLMs) is known as Program-Aided Language models, or PAL. This idea was first introduced in 2022 by Luyu Gao and others at Carnegie Mellon University. PAL combines an LLM with an external code interpreter, enabling it to perform calculations. It uses a technique called 'chain of thought prompting' to create Python scripts that can be executed. These scripts are then run by an interpreter. The image on the right in the paper shows some example prompts and their responses.
