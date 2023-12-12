@@ -4,19 +4,17 @@
   <img src="images/0.png" alt="drawing" width="800"/>
 </p>
 
-## Contact info
+<h2>Contact Info:</h2>
 
 Reach out to me at one of the following places!
 
 - **Website at** <a href="https://www.linkedin.com/in/oktay-tuncay-8b147724/" target="_blank">`linkedin.com`</a>
 - **Email:** oktaytncy@gmail.com
 
-# Table of Contents
+<h2>Table of Contents:</h2>
 
 ---
 - [Generative AI with Large Language Models (LLM)](#generative-ai-with-large-language-models-llm)
-  - [Contact info](#contact-info)
-- [Table of Contents](#table-of-contents)
   - [Back to Basics: Core Concepts Explained](#back-to-basics-core-concepts-explained)
     - [What is Generative AI and LLM](#what-is-generative-ai-and-llm)
     - [LLM Use Cases and Practical Tasks](#llm-use-cases-and-practical-tasks)
