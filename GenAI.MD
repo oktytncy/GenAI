@@ -1,10 +1,22 @@
 # Generative AI with Large Language Models (LLM)
 
-<p align="middle">
-  <img src="images/0.png" alt="drawing" width="1000"/>
-</p
+<p align="left">
+  <img src="images/0.png" alt="drawing" width="600"/>
+</p>
 
+## Contact info
+
+Reach out to me at one of the following places!
+
+- **Website at** <a href="https://www.linkedin.com/in/oktay-tuncay-8b147724/" target="_blank">`linkedin.com`</a>
+- **Email:** oktaytncy@gmail.com
+
+# Table of Contents
+
+---
 - [Generative AI with Large Language Models (LLM)](#generative-ai-with-large-language-models-llm)
+  - [Contact info](#contact-info)
+- [Table of Contents](#table-of-contents)
   - [Back to Basics: Core Concepts Explained](#back-to-basics-core-concepts-explained)
     - [What is Generative AI and LLM](#what-is-generative-ai-and-llm)
     - [LLM Use Cases and Practical Tasks](#llm-use-cases-and-practical-tasks)
@@ -1458,3 +1470,5 @@ An interesting method to enhance Language Learning Models (LLMs) is known as Pro
 The main idea of PAL is to get the LLM to produce answers where the reasoning steps include computer code. This code is sent to an interpreter to do the necessary calculations for solving the problem. You can guide the model on how to format its output by giving examples of one or a few short inferences in your question.
 
 - **To get the complete story about Roger's purchase of tennis balls:** [Click here!](https://arxiv.org/pdf/2211.10435.pdf)
+
+- **Note:** Some images in this block were sourced from **Coursera**. For more technical information and background: [Click here](https://www.coursera.org/learn/generative-ai-with-llms)
