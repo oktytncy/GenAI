@@ -1,6 +1,6 @@
-# <div style="text-align: center;">Generative AI with Large Language Models (LLM)</div>
+# Generative AI with Large Language Models (LLM)
 
-<p align="middle">
+<p align="left">
   <img src="images/0.png" alt="drawing" width="800"/>
 </p>
 
